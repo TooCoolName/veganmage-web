@@ -17,9 +17,9 @@ body,
 [data-theme="custom-light"] {
     color-scheme: light;
     /* Base Colors - Keeping these clean and airy */
-    --color-base-100: oklch(0.95 0.001 150);
+    --color-base-100: oklch(0.99 0.001 150);
     --color-base-200: oklch(0.97 0.001 150);
-    --color-base-300: oklch(0.99 0.001 150);
+    --color-base-300: oklch(0.95 0.001 150);
     --color-base-content: oklch(25% 0.01 150);
 
     /* Primary - Lighter, vibrant Emerald */
@@ -62,9 +62,9 @@ body,
 [data-theme="custom-dark"] {
     color-scheme: dark;
     /* Clean Dark mode */
-    --color-base-100: oklch(25% 0.01 150);
+    --color-base-100: oklch(18% 0.01 150);
     --color-base-200: oklch(22% 0.01 150);
-    --color-base-300: oklch(18% 0.01 150);
+    --color-base-300: oklch(25% 0.01 150);
     --color-base-content: oklch(90% 0.01 150);
 
     /* Primary - Lighter, vibrant Emerald */

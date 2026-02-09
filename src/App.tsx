@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { HomePage } from './pages/HomePage';
 import { MagesPage } from './pages/MagesPage';
-import './App.css';
 
 function App() {
   return (

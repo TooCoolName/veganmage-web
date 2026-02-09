@@ -16,7 +16,7 @@ export function Layout() {
 
     return (
         <div className="min-h-screen flex flex-col bg-base-100 text-base-content font-sans">
-            <nav className="navbar bg-base-100 border-b border-base-300 px-4 md:px-8 py-2 sticky top-0 z-50 backdrop-blur-sm bg-opacity-90">
+            <nav className="navbar bg-base-200 border-b border-base-300 px-4 md:px-8 py-2 sticky top-0 z-50 backdrop-blur-sm bg-opacity-90">
                 <div className="flex-1">
                     <Link to="/" className="btn btn-ghost text-xl font-bold flex items-center gap-2">
                         <img src="/icon128.png" alt="Logo" className="w-8 h-8" />
@@ -46,7 +46,7 @@ export function Layout() {
 
             <footer className="footer footer-center p-4 bg-base-200 text-base-content rounded">
                 <aside>
-                    <p>Copyright © {new Date().getFullYear()} - All right reserved by Vegan Mage Collective</p>
+                    <p>Copyright © {new Date().getFullYear()} VeganMage</p>
                 </aside>
             </footer>
         </div>
