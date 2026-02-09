@@ -1,70 +1,29 @@
-import { useState, useMemo } from 'react';
-import { Search, Sparkles } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 
-// Mock data for initial implementation
-const MAGES_DATA = [
-    {
-        id: 1,
-        title: "Forest Guardian",
-        description: "Protector of the ancient woodlands, speaking for those who cannot speak for themselves.",
-        element: "Nature",
-        color: "from-green-400 to-emerald-600"
-    },
-    {
-        id: 2,
-        title: "Aether Weaver",
-        description: "Weaving the threads of digital potential and human compassion into a new reality.",
-        element: "Cosmic",
-        color: "from-purple-400 to-indigo-600"
-    },
-    {
-        id: 3,
-        title: "Solar Arcanist",
-        description: "Harnessing the raw energy of the sun to illuminate the path forward.",
-        element: "Fire",
-        color: "from-orange-400 to-red-600"
-    },
-    {
-        id: 4,
-        title: "Tidal Mystic",
-        description: "Flowing with the tides, understanding the depth of empathy required for change.",
-        element: "Water",
-        color: "from-blue-400 to-cyan-600"
-    },
-    {
-        id: 5,
-        title: "Terra Molder",
-        description: "Shaping the earth to build sanctuaries visible only to the pure of heart.",
-        element: "Earth",
-        color: "from-amber-600 to-yellow-800"
-    },
-    {
-        id: 6,
-        title: "Wind Whisperer",
-        description: "Carrying the seeds of change across vast distances on unseen currents.",
-        element: "Air",
-        color: "from-slate-300 to-slate-500"
-    }
-];
+import { useState, useMemo } from 'react';
+import { Search, Sparkles, User } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { getMages } from '../lib/mages';
 
 export function MagesPage() {
     const [filter, setFilter] = useState('');
 
+    const mages = getMages();
+
     const filteredMages = useMemo(() => {
-        return MAGES_DATA.filter(mage =>
-            mage.title.toLowerCase().includes(filter.toLowerCase()) ||
-            mage.description.toLowerCase().includes(filter.toLowerCase()) ||
-            mage.element.toLowerCase().includes(filter.toLowerCase())
+        return mages.filter(mage =>
+            mage.data.meta?.title?.toLowerCase().includes(filter.toLowerCase()) ||
+            mage.data.meta?.description?.toLowerCase().includes(filter.toLowerCase()) ||
+            mage.data.meta?.author?.toLowerCase().includes(filter.toLowerCase())
         );
-    }, [filter]);
+    }, [filter, mages]);
 
     return (
-        <div className="space-y-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-base-200 p-6 rounded-2xl">
+        <div className="space-y-8 max-w-7xl mx-auto px-4">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-base-200 p-6 rounded-2xl shadow-sm">
                 <div>
                     <h1 className="text-3xl font-bold flex items-center gap-2">
-                        <Sparkles className="text-primary" />
+                        <Sparkles className="text-primary w-8 h-8" />
                         The Circle of Mages
                     </h1>
                     <p className="text-base-content/70 mt-1">Discover the entities guiding the evolution.</p>
@@ -95,27 +54,33 @@ export function MagesPage() {
                             exit={{ opacity: 0, scale: 0.9 }}
                             transition={{ duration: 0.2 }}
                             key={mage.id}
-                            className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 group border border-base-200 hover:border-primary/20 overflow-hidden"
+                            className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 group border border-base-200 hover:border-primary/20 overflow-hidden h-full"
                         >
-                            <div className={`h-24 bg-gradient-to-br ${mage.color} relative`}>
-                                <div className="absolute top-4 right-4 badge badge-ghost bg-white/20 backdrop-blur-md border-none text-white shadow-sm">
-                                    {mage.element}
-                                </div>
+                            <div className={`h-24 bg-gradient-to-br from-primary/20 to-secondary/20 relative`}>
                                 <div className="absolute -bottom-6 left-6 w-12 h-12 bg-base-100 rounded-xl shadow-lg flex items-center justify-center border border-base-200 group-hover:scale-110 transition-transform duration-300">
                                     <Sparkles className="w-6 h-6 text-primary" />
                                 </div>
                             </div>
-                            <div className="card-body pt-8">
+                            <div className="card-body pt-10">
                                 <h2 className="card-title text-primary group-hover:text-primary-focus transition-colors">
-                                    {mage.title}
+                                    {mage.data.meta?.title || mage.id}
                                 </h2>
-                                <p className="text-base-content/80 text-sm leading-relaxed">
-                                    {mage.description}
+                                {mage.data.meta?.author && (
+                                    <div className="text-xs text-base-content/60 flex items-center gap-1 mb-2">
+                                        <User className="w-3 h-3" />
+                                        {mage.data.meta.author}
+                                    </div>
+                                )}
+                                <p className="text-base-content/80 text-sm leading-relaxed line-clamp-3">
+                                    {mage.data.meta?.description}
                                 </p>
-                                <div className="card-actions justify-end mt-4">
-                                    <button className="btn btn-sm btn-ghost hover:bg-primary/10 hover:text-primary">
+                                <div className="card-actions justify-end mt-auto pt-4">
+                                    <Link
+                                        to={`/mages/${mage.id}`}
+                                        className="btn btn-sm btn-ghost hover:bg-primary/10 hover:text-primary group-hover:translate-x-1 transition-all"
+                                    >
                                         View Details
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>
