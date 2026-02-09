@@ -21,6 +21,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "4.1.18",
     "@tailwindcss/cli": "^4.1.18",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/bun": "latest",

@@ -8,43 +8,43 @@ const MAGES_DATA = [
         id: 1,
         title: "Forest Guardian",
         description: "Protector of the ancient woodlands, speaking for those who cannot speak for themselves.",
-        image: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&q=80&w=800", // Placeholder
-        element: "Nature"
+        element: "Nature",
+        color: "from-green-400 to-emerald-600"
     },
     {
         id: 2,
         title: "Aether Weaver",
         description: "Weaving the threads of digital potential and human compassion into a new reality.",
-        image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800", // Placeholder
-        element: "Cosmic"
+        element: "Cosmic",
+        color: "from-purple-400 to-indigo-600"
     },
     {
         id: 3,
         title: "Solar Arcanist",
         description: "Harnessing the raw energy of the sun to illuminate the path forward.",
-        image: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?auto=format&fit=crop&q=80&w=800",
-        element: "Fire"
+        element: "Fire",
+        color: "from-orange-400 to-red-600"
     },
     {
         id: 4,
         title: "Tidal Mystic",
         description: "Flowing with the tides, understanding the depth of empathy required for change.",
-        image: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?auto=format&fit=crop&q=80&w=800",
-        element: "Water"
+        element: "Water",
+        color: "from-blue-400 to-cyan-600"
     },
     {
         id: 5,
         title: "Terra Molder",
         description: "Shaping the earth to build sanctuaries visible only to the pure of heart.",
-        image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=800",
-        element: "Earth"
+        element: "Earth",
+        color: "from-amber-600 to-yellow-800"
     },
     {
         id: 6,
         title: "Wind Whisperer",
         description: "Carrying the seeds of change across vast distances on unseen currents.",
-        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800",
-        element: "Air"
+        element: "Air",
+        color: "from-slate-300 to-slate-500"
     }
 ];
 
@@ -95,19 +95,17 @@ export function MagesPage() {
                             exit={{ opacity: 0, scale: 0.9 }}
                             transition={{ duration: 0.2 }}
                             key={mage.id}
-                            className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 group border border-base-200 hover:border-primary/20"
+                            className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 group border border-base-200 hover:border-primary/20 overflow-hidden"
                         >
-                            <figure className="h-48 overflow-hidden relative">
-                                <img
-                                    src={mage.image}
-                                    alt={mage.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                                <div className="absolute top-2 right-2 badge badge-secondary shadow-md">
+                            <div className={`h-24 bg-gradient-to-br ${mage.color} relative`}>
+                                <div className="absolute top-4 right-4 badge badge-ghost bg-white/20 backdrop-blur-md border-none text-white shadow-sm">
                                     {mage.element}
                                 </div>
-                            </figure>
-                            <div className="card-body">
+                                <div className="absolute -bottom-6 left-6 w-12 h-12 bg-base-100 rounded-xl shadow-lg flex items-center justify-center border border-base-200 group-hover:scale-110 transition-transform duration-300">
+                                    <Sparkles className="w-6 h-6 text-primary" />
+                                </div>
+                            </div>
+                            <div className="card-body pt-8">
                                 <h2 className="card-title text-primary group-hover:text-primary-focus transition-colors">
                                     {mage.title}
                                 </h2>
