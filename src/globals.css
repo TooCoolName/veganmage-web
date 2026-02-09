@@ -109,3 +109,13 @@ select:focus-within {
     outline: none !important;
     box-shadow: none !important;
 }
+
+@theme {
+    --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.bg-grid-pattern {
+    background-image: linear-gradient(to right, currentColor 1px, transparent 1px),
+        linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 40px 40px;
+}
