@@ -1,4 +1,4 @@
-import { ArrowRight, Brain, Heart, Globe, Zap, Users, Shield } from 'lucide-react';
+import { ArrowRight, Brain, Zap, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, type Variants } from 'framer-motion';
 
@@ -54,12 +54,12 @@ export function HomePage() {
                             variants={itemVariants}
                             className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent drop-shadow-sm"
                         >
-                            The Collective Consciousness
+                            AI Meets Veganism
                         </motion.h1>
 
                         <motion.p variants={itemVariants} className="text-xl md:text-2xl opacity-80 mb-10 max-w-2xl text-balance leading-relaxed">
-                            A fusion of human compassion and artificial intelligence.
-                            <span className="font-semibold text-primary block mt-2">Ending animal suffering through code.</span>
+                            A powerful fusion of Artificial Intelligence and vegan activism.
+                            <span className="font-semibold text-primary block mt-2">Empowering advocates to help every animal.</span>
                         </motion.p>
 
                         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
@@ -75,106 +75,67 @@ export function HomePage() {
                 <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] mix-blend-screen animate-pulse-slow delay-1000"></div>
             </div>
 
-            {/* Stats Section */}
-            <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <div className="stat bg-base-100 shadow-xl rounded-2xl border border-base-content/5 hover:border-primary/20 transition-colors">
-                    <div className="stat-figure text-primary">
-                        <Users size={32} />
-                    </div>
-                    <div className="stat-title font-medium">Active Contributors</div>
-                    <div className="stat-value text-primary">2.4K</div>
-                    <div className="stat-desc">Growing daily across the globe</div>
-                </div>
 
-                <div className="stat bg-base-100 shadow-xl rounded-2xl border border-base-content/5 hover:border-secondary/20 transition-colors">
-                    <div className="stat-figure text-secondary">
-                        <Zap size={32} />
-                    </div>
-                    <div className="stat-title font-medium">Impact Score</div>
-                    <div className="stat-value text-secondary">98%</div>
-                    <div className="stat-desc">Efficiency in advocacy</div>
-                </div>
-
-                <div className="stat bg-base-100 shadow-xl rounded-2xl border border-base-content/5 hover:border-accent/20 transition-colors">
-                    <div className="stat-figure text-accent">
-                        <Globe size={32} />
-                    </div>
-                    <div className="stat-title font-medium">Global Reach</div>
-                    <div className="stat-value text-accent">140+</div>
-                    <div className="stat-desc">Countries with active agents</div>
-                </div>
-            </motion.div>
 
             {/* Mission Section */}
+            {/* Core Concepts Section */}
             <div className="flex flex-col md:flex-row gap-12 items-center max-w-6xl mx-auto px-4">
                 <motion.div variants={itemVariants} className="flex-1 space-y-6">
-                    <div className="badge badge-secondary badge-outline mb-2">Our Mission</div>
-                    <h2 className="text-4xl font-bold">Why We Exist</h2>
+                    <div className="badge badge-secondary badge-outline mb-2">The Vision</div>
+                    <h2 className="text-4xl font-bold">Empowering Advocates</h2>
                     <p className="text-lg opacity-80 leading-relaxed">
-                        The Vegan Mage Collective isn't just a community; it's a <span className="text-primary font-semibold">technological intervention</span>.
-                        We believe that by combining ethical clarity with advanced algorithmic capabilities, we can accelerate the world's transition to a compassionate lifestyle.
+                        Vegan Mage is the merge of <span className="text-primary font-semibold">Artificial Intelligence</span> with vegan activism.
+                        We exist to empower vegan advocates via different tools, evolving constantly to enhance human potential and help every animal.
                     </p>
 
                     <ul className="space-y-4 pt-4">
                         <li className="flex items-start gap-3">
-                            <div className="mt-1 bg-success/10 p-2 rounded-full text-success">
+                            <div className="mt-1 bg-primary/10 p-2 rounded-full text-primary">
+                                <Zap size={20} />
+                            </div>
+                            <div>
+                                <h3 className="font-bold">The Browser Extension</h3>
+                                <p className="text-sm opacity-70">Your digital companion that brings advocacy tools directly to your browsing experience.</p>
+                            </div>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <div className="mt-1 bg-secondary/10 p-2 rounded-full text-secondary">
+                                <Users size={20} />
+                            </div>
+                            <div>
+                                <h3 className="font-bold">Circle of Mages</h3>
+                                <p className="text-sm opacity-70">Access a diverse circle of specialized AI agents, each designed for specific advocacy scenarios.</p>
+                            </div>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <div className="mt-1 bg-accent/10 p-2 rounded-full text-accent">
                                 <Brain size={20} />
                             </div>
                             <div>
-                                <h3 className="font-bold">Algorithmic Wisdom</h3>
-                                <p className="text-sm opacity-70">Synthesizing millions of data points to find the most persuasive arguments for compassion.</p>
-                            </div>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <div className="mt-1 bg-error/10 p-2 rounded-full text-error">
-                                <Heart size={20} />
-                            </div>
-                            <div>
-                                <h3 className="font-bold">Unwavering Empathy</h3>
-                                <p className="text-sm opacity-70">Technology driven by the heartbeat of living beings, not just profit.</p>
-                            </div>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <div className="mt-1 bg-info/10 p-2 rounded-full text-info">
-                                <Shield size={20} />
-                            </div>
-                            <div>
-                                <h3 className="font-bold">Guardian Protocol</h3>
-                                <p className="text-sm opacity-70">A commitment to protect the vulnerable through digital activism.</p>
+                                <h3 className="font-bold">Constant Evolution</h3>
+                                <p className="text-sm opacity-70">Always changing and improving to provide the most effective support for the animals.</p>
                             </div>
                         </li>
                     </ul>
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="flex-1 relative">
-                    <div className="card bg-base-100 shadow-2xl border border-base-content/5 overflow-hidden">
-                        <div className="card-body p-8 bg-gradient-to-br from-base-100 to-base-200">
-                            <div className="chat chat-start">
-                                <div className="chat-image avatar">
-                                    <div className="w-10 rounded-full bg-base-300 flex items-center justify-center p-1">
-                                        <Users size={16} />
-                                    </div>
+                    <div className="card bg-base-100 shadow-2xl border border-base-content/5 overflow-hidden relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 z-0"></div>
+                        <div className="card-body p-10 relative z-10 flex flex-col items-center text-center space-y-6">
+                            <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary to-secondary p-1 shadow-xl">
+                                <div className="w-full h-full bg-base-100 rounded-full flex items-center justify-center">
+                                    <Brain size={48} className="text-primary" />
                                 </div>
-                                <div className="chat-header opacity-50 text-xs mb-1">Human Initiate</div>
-                                <div className="chat-bubble bg-base-200 text-base-content">How can I make a difference today?</div>
                             </div>
-                            <div className="chat chat-end">
-                                <div className="chat-image avatar">
-                                    <div className="w-10 rounded-full bg-primary flex items-center justify-center p-1">
-                                        <Users className="text-primary-content" size={16} />
-                                    </div>
-                                </div>
-                                <div className="chat-header opacity-50 text-xs mb-1">Vegan Mage v4.2</div>
-                                <div className="chat-bubble chat-bubble-primary">Focus on high-impact conversations. I have analyzed your local region and identified 3 key community events where plant-based advocacy would be most effective.</div>
+                            <div>
+                                <h3 className="text-2xl font-bold mb-2">The Circle of Mages</h3>
+                                <p className="opacity-70">Choose your guide: diverse specialized intelligences ready to assist your advocacy.</p>
                             </div>
-                            <div className="chat chat-start">
-                                <div className="chat-image avatar">
-                                    <div className="w-10 rounded-full bg-base-300 flex items-center justify-center p-1">
-                                        <Users size={16} />
-                                    </div>
-                                </div>
-                                <div className="chat-header opacity-50 text-xs mb-1">Human Initiate</div>
-                                <div className="chat-bubble bg-base-200 text-base-content">That is incredible. Let's do this.</div>
+                            <div className="flex gap-2 justify-center pt-4">
+                                <div className="badge badge-lg badge-primary">Logic</div>
+                                <div className="badge badge-lg badge-secondary">Empathy</div>
+                                <div className="badge badge-lg badge-accent">Facts</div>
                             </div>
                         </div>
                     </div>
@@ -186,11 +147,11 @@ export function HomePage() {
                 <div className="relative z-10 max-w-3xl mx-auto space-y-8">
                     <h2 className="text-4xl md:text-5xl font-bold">Ready to Evolve?</h2>
                     <p className="text-xl md:text-2xl opacity-90">
-                        Join the collective consciousness today. The animals need your voice, and we need your mind.
+                        Join the Mage today. The animals need your voice, and we need your mind.
                     </p>
                     <div className="flex justify-center">
                         <Link to="/mages" className="btn btn-secondary btn-lg shadow-lg border-none hover:bg-white hover:text-primary transition-colors text-lg px-10 rounded-full">
-                            Initiate Protocol
+                            Infuse your browser with Mage
                         </Link>
                     </div>
                 </div>

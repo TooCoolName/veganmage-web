@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Moon, Sun, Menu } from 'lucide-react';
+import { Moon, Sun, Menu, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function Layout() {
@@ -21,7 +21,7 @@ export function Layout() {
 
     const navLinks = [
         { path: '/', label: 'Home' },
-        { path: '/mages', label: 'The Circle' },
+        { path: '/mages', label: 'Circle of Mages' },
     ];
 
     return (
@@ -108,24 +108,53 @@ export function Layout() {
                 <Outlet />
             </main>
 
-            <footer className="footer footer-center p-10 bg-base-100 text-base-content rounded-t-3xl border-t border-base-content/5">
-                <aside>
-                    <div className="flex justify-center mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-tr from-primary to-secondary rounded-xl shadow-lg flex items-center justify-center">
-                            <img src="/icon128.png" alt="Logo" className="w-8 h-8 opacity-80 mix-blend-multiply" />
+            <footer className="relative mt-auto bg-base-100/80 backdrop-blur-md border-t border-base-content/5 pt-12 pb-8">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col items-center text-center gap-8">
+                        {/* Brand Section */}
+                        <div className="flex flex-col items-center gap-4">
+                            <Link to="/" className="group relative">
+                                <div className="w-16 h-16 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center transform transition-transform group-hover:scale-105 group-hover:rotate-3 duration-300 border border-base-content/5">
+                                    <img src="/icon128.png" alt="Vegan Mage Logo" className="w-10 h-10 opacity-90" />
+                                </div>
+                                <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
+                            </Link>
+                            <div>
+                                <h3 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                                    Vegan Mage
+                                </h3>
+                                <p className="text-sm text-base-content/60 mt-2 max-w-xs mx-auto leading-relaxed">
+                                    Using technology to alleviate suffering and cultivate compassion.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Navigation Links */}
+                        <nav className="flex flex-wrap justify-center gap-8 text-sm font-medium">
+                            <Link to="/" className="hover:text-primary transition-colors relative group">
+                                Home
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full opacity-50" />
+                            </Link>
+                            <Link to="/mages" className="hover:text-primary transition-colors relative group">
+                                The Circle
+                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full opacity-50" />
+                            </Link>
+                        </nav>
+
+                        {/* Divider */}
+                        <div className="w-full max-w-xs h-px bg-gradient-to-r from-transparent via-base-content/10 to-transparent" />
+
+                        {/* Copyright */}
+                        <div className="flex flex-col items-center gap-2 text-xs text-base-content/40 font-medium">
+                            <p>
+                                &copy; {new Date().getFullYear()} Vegan Mage. All rights reserved.
+                            </p>
+                            <p className="flex items-center gap-1.5 mt-1">
+                                Made with <Heart className="w-3.5 h-3.5 text-error fill-current animate-pulse" /> for all beings
+                            </p>
                         </div>
                     </div>
-                    <p className="font-bold text-lg">
-                        Vegan Mage Collective
-                    </p>
-                    <p className="text-base-content/60">Using technology to alleviate suffering.</p>
-                    <p className="text-sm mt-4 opacity-50">Copyright © {new Date().getFullYear()} - All rights reserved</p>
-                </aside>
-                <nav>
-                    <Link to="/" className="opacity-70 hover:opacity-100 transition-opacity hover:text-primary font-bold">
-                        VM
-                    </Link>
-                </nav>
+                </div>
             </footer>
         </div>
     );
