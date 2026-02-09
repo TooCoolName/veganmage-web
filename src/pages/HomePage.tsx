@@ -66,9 +66,6 @@ export function HomePage() {
                             <Link to="/mages" className="btn btn-primary btn-lg shadow-xl hover:shadow-primary/50 hover:-translate-y-1 transition-all rounded-full px-8">
                                 Meet the Mages <ArrowRight size={20} />
                             </Link>
-                            <a href="https://github.com/veganmage" target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-lg rounded-full px-8 hover:bg-base-content/5">
-                                Join the Collective
-                            </a>
                         </motion.div>
                     </div>
                 </div>
@@ -192,9 +189,9 @@ export function HomePage() {
                         Join the collective consciousness today. The animals need your voice, and we need your mind.
                     </p>
                     <div className="flex justify-center">
-                        <a href="https://github.com/veganmage" className="btn btn-secondary btn-lg shadow-lg border-none hover:bg-white hover:text-primary transition-colors text-lg px-10 rounded-full">
+                        <Link to="/mages" className="btn btn-secondary btn-lg shadow-lg border-none hover:bg-white hover:text-primary transition-colors text-lg px-10 rounded-full">
                             Initiate Protocol
-                        </a>
+                        </Link>
                     </div>
                 </div>
 

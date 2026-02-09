@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Moon, Sun, Menu, Github } from 'lucide-react';
+import { Moon, Sun, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function Layout() {
@@ -27,12 +27,12 @@ export function Layout() {
     return (
         <div className="min-h-screen flex flex-col bg-base-200/50 font-sans selection:bg-primary selection:text-primary-content transition-colors duration-300">
             {/* Floating Navbar */}
-            <div className="sticky top-4 z-50 px-4 mb-4">
-                <div className="navbar bg-base-100/80 backdrop-blur-xl shadow-lg rounded-box border border-base-content/5 max-w-7xl mx-auto transition-all duration-300">
+            <div className="sticky top-0 z-50 w-full mb-4">
+                <div className="navbar bg-base-100/80 backdrop-blur-xl shadow-lg border-b border-base-content/5 w-full transition-all duration-300 px-4">
                     <div className="navbar-start">
                         <Link to="/" className="btn btn-ghost text-xl font-bold flex items-center gap-2 hover:bg-transparent">
                             <div className="avatar placeholder">
-                                <div className="bg-gradient-to-tr from-primary to-secondary text-neutral-content rounded-xl w-10 shadow-lg ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <div className="text-neutral-content rounded-xl w-10 shadow-lg ring ring-primary ring-offset-base-100 ring-offset-2">
                                     <img src="/icon128.png" alt="Logo" className="opacity-90 mix-blend-multiply" />
                                 </div>
                             </div>
@@ -61,9 +61,7 @@ export function Layout() {
                     </div>
 
                     <div className="navbar-end gap-2">
-                        <a href="https://github.com/veganmage" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle hidden sm:flex hover:rotate-12 transition-transform">
-                            <Github size={20} />
-                        </a>
+
                         <button onClick={toggleTheme} className="btn btn-circle btn-ghost hover:scale-110 active:scale-95 transition-transform" aria-label="Toggle Theme">
                             <div className="swap swap-rotate">
                                 <input type="checkbox" checked={theme === 'custom-dark'} readOnly />
@@ -71,7 +69,7 @@ export function Layout() {
                                 <Moon className="swap-off fill-current w-6 h-6 text-primary" />
                             </div>
                         </button>
-                        <div className="dropdown dropdown-end lg:hidden">
+                        <div className="lg:hidden">
                             <button tabIndex={0} className="btn btn-ghost btn-circle" onClick={toggleMenu}>
                                 <Menu size={24} />
                             </button>
@@ -86,7 +84,7 @@ export function Layout() {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="lg:hidden absolute top-20 right-4 left-4 z-40"
+                            className="lg:hidden absolute top-full right-4 z-40 mt-2"
                         >
                             <ul className="menu bg-base-100 rounded-box shadow-xl border border-base-content/5 p-2 gap-2">
                                 {navLinks.map((link) => (
@@ -124,11 +122,9 @@ export function Layout() {
                     <p className="text-sm mt-4 opacity-50">Copyright © {new Date().getFullYear()} - All rights reserved</p>
                 </aside>
                 <nav>
-                    <div className="grid grid-flow-col gap-4">
-                        <a href="https://github.com/veganmage" className="opacity-70 hover:opacity-100 transition-opacity hover:text-primary">
-                            <Github size={24} />
-                        </a>
-                    </div>
+                    <Link to="/" className="opacity-70 hover:opacity-100 transition-opacity hover:text-primary font-bold">
+                        VM
+                    </Link>
                 </nav>
             </footer>
         </div>
