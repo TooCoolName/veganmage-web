@@ -32,8 +32,8 @@ export function Layout() {
                     <div className="navbar-start">
                         <Link to="/" className="btn btn-ghost text-xl font-bold flex items-center gap-2 hover:bg-transparent">
                             <div className="avatar placeholder">
-                                <div className="text-neutral-content rounded-xl w-10 shadow-lg ring ring-primary ring-offset-base-100 ring-offset-2">
-                                    <img src="/icon128.png" alt="Logo" className="opacity-90 mix-blend-multiply" />
+                                <div className="text-neutral-content rounded-full w-10 shadow-lg ring ring-primary ring-offset-base-100 ring-offset-2 p-1.5 bg-base-100">
+                                    <img src="/icon128.png" alt="Logo" className="opacity-90 object-contain" />
                                 </div>
                             </div>
                             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-extrabold tracking-tight hidden sm:inline-block">
@@ -114,8 +114,8 @@ export function Layout() {
                         {/* Brand Section */}
                         <div className="flex flex-col items-center gap-4">
                             <Link to="/" className="group relative">
-                                <div className="w-16 h-16 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center transform transition-transform group-hover:scale-105 group-hover:rotate-3 duration-300 border border-base-content/5">
-                                    <img src="/icon128.png" alt="Vegan Mage Logo" className="w-10 h-10 opacity-90" />
+                                <div className="w-16 h-16 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-full flex items-center justify-center transform transition-transform group-hover:scale-105 group-hover:rotate-3 duration-300 border border-base-content/5 p-3">
+                                    <img src="/icon128.png" alt="Vegan Mage Logo" className="w-full h-full opacity-90 object-contain" />
                                 </div>
                                 <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
                             </Link>

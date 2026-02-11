@@ -57,7 +57,7 @@ export function MagesPage() {
                             className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 group border border-base-200 hover:border-primary/20 overflow-hidden h-full"
                         >
                             <div className={`h-24 bg-gradient-to-br from-primary/20 to-secondary/20 relative`}>
-                                <div className="absolute -bottom-6 left-6 w-12 h-12 bg-base-100 rounded-xl shadow-lg flex items-center justify-center border border-base-200 group-hover:scale-110 transition-transform duration-300">
+                                <div className="absolute -bottom-6 left-6 w-12 h-12 bg-base-100 rounded-full shadow-lg flex items-center justify-center border border-base-200 group-hover:scale-110 transition-transform duration-300">
                                     <Sparkles className="w-6 h-6 text-primary" />
                                 </div>
                             </div>

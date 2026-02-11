@@ -44,7 +44,7 @@ export function HomePage() {
                         >
                             <div className="w-32 h-32 md:w-40 md:h-40 p-1 bg-gradient-to-tr from-primary to-secondary rounded-full shadow-2xl">
                                 <div className="w-full h-full bg-base-100 rounded-full flex items-center justify-center overflow-hidden p-2">
-                                    <img src="/icon128.png" alt="Vegan Mage Mascot" className="w-full h-full object-contain" />
+                                    <img src="/icon330.png" alt="Vegan Mage Mascot" className="w-full h-full object-contain" />
                                 </div>
                             </div>
                             <div className="absolute -bottom-2 -right-2 badge badge-primary badge-lg shadow-lg rotate-12">v1.0</div>
