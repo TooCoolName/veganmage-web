@@ -43,7 +43,7 @@ export function HomePage() {
                             className="mb-8 relative"
                         >
                             <div className="w-32 h-32 md:w-40 md:h-40 p-1 bg-gradient-to-tr from-primary to-secondary rounded-full shadow-2xl">
-                                <div className="w-full h-full bg-base-100 rounded-full flex items-center justify-center overflow-hidden p-4">
+                                <div className="w-full h-full bg-base-100 rounded-full flex items-center justify-center overflow-hidden p-1 pt-5">
                                     <img src="/icon330.png" alt="Vegan Mage Mascot" className="w-full h-full object-contain" />
                                 </div>
                             </div>
