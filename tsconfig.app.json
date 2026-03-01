@@ -11,8 +11,7 @@
     "module": "ESNext",
     "types": [
       "vite/client",
-      "node",
-      "bun"
+      "node"
     ],
     "skipLibCheck": true,
     /* Svelte */
