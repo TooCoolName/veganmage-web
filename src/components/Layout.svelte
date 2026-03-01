@@ -84,17 +84,17 @@
                 <ul
                     class="menu menu-horizontal px-1 gap-2 bg-base-200/50 rounded-full p-1.5 backdrop-blur-sm border border-base-content/5"
                 >
-                    {#each navLinks as link}
+                    {#each navLinks as navItem}
                         <li>
                             <a
-                                href={link.path}
+                                href={navItem.path}
                                 use:link
                                 class="rounded-full px-6 font-medium transition-all duration-200 {currentPath ===
-                                link.path
+                                navItem.path
                                     ? 'bg-primary text-primary-content shadow-md'
                                     : 'hover:bg-base-300 hover:text-primary'}"
                             >
-                                {link.label}
+                                {navItem.label}
                             </a>
                         </li>
                     {/each}
@@ -139,17 +139,17 @@
                 <ul
                     class="menu bg-base-100 rounded-box shadow-xl border border-base-content/5 p-2 gap-2"
                 >
-                    {#each navLinks as link}
+                    {#each navLinks as navItem}
                         <li>
                             <a
-                                href={link.path}
+                                href={navItem.path}
                                 use:link
-                                class={currentPath === link.path
+                                class={currentPath === navItem.path
                                     ? "active font-bold"
                                     : ""}
                                 onclick={() => (isMenuOpen = false)}
                             >
-                                {link.label}
+                                {navItem.label}
                             </a>
                         </li>
                     {/each}
