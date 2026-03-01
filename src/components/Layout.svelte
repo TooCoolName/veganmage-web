@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Snippet } from "svelte";
-    import { link } from "svelte-routing";
+    import { link, useLocation } from "svelte-routing";
     import { onMount } from "svelte";
     import { Moon, Sun, Menu, Heart } from "lucide-svelte";
     // Note: AnimatePresence-like behavior in Svelte is usually handled with transitions
@@ -12,15 +12,19 @@
             : "custom-light",
     );
     let isMenuOpen = $state(false);
-    let currentPath = $state(
-        typeof window !== "undefined" ? window.location.pathname : "/",
-    );
+    let currentPath = $state("/");
 
     $effect(() => {
         if (typeof document !== "undefined") {
             document.documentElement.setAttribute("data-theme", theme);
             localStorage.setItem("theme", theme);
         }
+    });
+
+    const location = useLocation();
+
+    $effect(() => {
+        currentPath = $location.pathname;
     });
 
     function toggleTheme() {
@@ -39,11 +43,7 @@
     let { children }: { children: Snippet } = $props();
 
     onMount(() => {
-        const handlePopState = () => {
-            currentPath = window.location.pathname;
-        };
-        window.addEventListener("popstate", handlePopState);
-        return () => window.removeEventListener("popstate", handlePopState);
+        // currentPath is now handled by the $location store effect
     });
 </script>
 
