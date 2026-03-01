@@ -222,7 +222,7 @@
                         The Circle
                         <span
                             class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full opacity-50"
-                        />
+                        ></span>
                     </a>
                 </nav>
 
