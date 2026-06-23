@@ -1,6 +1,9 @@
 import { ArrowRight, Brain, Zap, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, type Variants } from 'framer-motion';
+import { Badge } from '../components/ui/badge';
+import { buttonVariants } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
 
 export function HomePage() {
     const containerVariants: Variants = {
@@ -33,9 +36,9 @@ export function HomePage() {
             className="space-y-24 pb-20"
         >
             {/* Hero Section */}
-            <div className="hero min-h-[70vh] rounded-3xl bg-base-200/30 overflow-hidden relative border border-base-content/5">
+            <div className="min-h-[70vh] rounded-3xl bg-muted/30 overflow-hidden relative border border-border/60 flex items-center justify-center">
                 <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
-                <div className="hero-content text-center max-w-4xl relative z-10 px-6 py-12">
+                <div className="text-center max-w-4xl relative z-10 px-6 py-12">
                     <div className="flex flex-col items-center">
                         <motion.div
                             whileHover={{ scale: 1.05, rotate: 5 }}
@@ -43,11 +46,11 @@ export function HomePage() {
                             className="mb-8 relative"
                         >
                             <div className="w-32 h-32 md:w-40 md:h-40 p-1 bg-gradient-to-tr from-primary to-secondary rounded-full shadow-2xl">
-                                <div className="w-full h-full bg-base-100 rounded-full flex items-center justify-center overflow-hidden p-1 pt-5">
+                                <div className="w-full h-full bg-card rounded-full flex items-center justify-center overflow-hidden p-1 pt-5">
                                     <img src="/icon330.png" alt="Vegan Mage Mascot" className="w-full h-full object-contain" />
                                 </div>
                             </div>
-                            <div className="absolute -bottom-2 -right-2 badge badge-primary badge-lg shadow-lg rotate-12">v1.0</div>
+                            <Badge className="absolute -bottom-2 -right-2 shadow-lg rotate-12 text-sm px-3 py-1">v1.0</Badge>
                         </motion.div>
 
                         <motion.h1
@@ -63,7 +66,7 @@ export function HomePage() {
                         </motion.p>
 
                         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4">
-                            <Link to="/mages" className="btn btn-primary btn-lg shadow-xl hover:shadow-primary/50 hover:-translate-y-1 transition-all rounded-full px-8">
+                            <Link to="/mages" className={buttonVariants({ size: 'lg', className: 'shadow-xl hover:shadow-primary/50 hover:-translate-y-1 rounded-full px-8' })}>
                                 Meet the Mages <ArrowRight size={20} />
                             </Link>
                         </motion.div>
@@ -81,7 +84,7 @@ export function HomePage() {
             {/* Core Concepts Section */}
             <div className="flex flex-col md:flex-row gap-12 items-center max-w-6xl mx-auto px-4">
                 <motion.div variants={itemVariants} className="flex-1 space-y-6">
-                    <div className="badge badge-secondary badge-outline mb-2">The Vision</div>
+                    <Badge variant="outline" className="mb-2 border-secondary text-secondary">The Vision</Badge>
                     <h2 className="text-4xl font-bold">Empowering Advocates</h2>
                     <p className="text-lg opacity-80 leading-relaxed">
                         Vegan Mage is the merge of <span className="text-primary font-semibold">Artificial Intelligence</span> with vegan activism.
@@ -120,11 +123,11 @@ export function HomePage() {
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="flex-1 relative">
-                    <div className="card bg-base-100 shadow-2xl border border-base-content/5 overflow-hidden relative">
+                    <Card className="shadow-2xl border-border/60 overflow-hidden relative">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 z-0"></div>
-                        <div className="card-body p-10 relative z-10 flex flex-col items-center text-center space-y-6">
+                        <CardContent className="p-10 relative z-10 flex flex-col items-center text-center space-y-6">
                             <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary to-secondary p-1 shadow-xl">
-                                <div className="w-full h-full bg-base-100 rounded-full flex items-center justify-center">
+                                <div className="w-full h-full bg-card rounded-full flex items-center justify-center">
                                     <Brain size={48} className="text-primary" />
                                 </div>
                             </div>
@@ -133,24 +136,24 @@ export function HomePage() {
                                 <p className="opacity-70">Choose your guide: diverse specialized intelligences ready to assist your advocacy.</p>
                             </div>
                             <div className="flex gap-2 justify-center pt-4">
-                                <div className="badge badge-lg badge-primary">Logic</div>
-                                <div className="badge badge-lg badge-secondary">Empathy</div>
-                                <div className="badge badge-lg badge-accent">Facts</div>
+                                <Badge className="text-sm px-3 py-1">Logic</Badge>
+                                <Badge variant="secondary" className="text-sm px-3 py-1">Empathy</Badge>
+                                <Badge variant="accent" className="text-sm px-3 py-1">Facts</Badge>
                             </div>
-                        </div>
-                    </div>
+                        </CardContent>
+                    </Card>
                 </motion.div>
             </div>
 
             {/* CTA Section */}
-            <motion.div variants={itemVariants} className="bg-primary text-primary-content rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
+            <motion.div variants={itemVariants} className="bg-primary text-primary-foreground rounded-3xl p-12 md:p-20 text-center relative overflow-hidden">
                 <div className="relative z-10 max-w-3xl mx-auto space-y-8">
                     <h2 className="text-4xl md:text-5xl font-bold">Ready to Evolve?</h2>
                     <p className="text-xl md:text-2xl opacity-90">
                         Join the Mage today. The animals need your voice, and we need your mind.
                     </p>
                     <div className="flex justify-center">
-                        <Link to="/mages" className="btn btn-secondary btn-lg shadow-lg border-none hover:bg-white hover:text-primary transition-colors text-lg px-10 rounded-full">
+                        <Link to="/mages" className={buttonVariants({ variant: 'secondary', size: 'lg', className: 'shadow-lg hover:bg-white hover:text-primary text-lg px-10 rounded-full' })}>
                             Infuse your browser with Mage
                         </Link>
                     </div>

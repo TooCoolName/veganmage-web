@@ -2,6 +2,8 @@
 import { useParams, Link } from 'react-router-dom';
 import { getMageById } from '../lib/mages';
 import { ArrowLeft, Download, Code, User, Globe } from 'lucide-react';
+import { Button, buttonVariants } from '../components/ui/button';
+import { Card, CardContent } from '../components/ui/card';
 
 export function MageDetailsPage() {
     const { id } = useParams<{ id: string }>();
@@ -12,7 +14,7 @@ export function MageDetailsPage() {
         return (
             <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
                 <h2 className="text-2xl font-bold">Mage not found</h2>
-                <Link to="/mages" className="btn btn-primary">
+                <Link to="/mages" className={buttonVariants()}>
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Mages
                 </Link>
@@ -41,12 +43,12 @@ export function MageDetailsPage() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div className="space-y-2">
                     <div className="flex items-center gap-3">
-                        <Link to="/mages" className="btn btn-circle btn-ghost btn-sm">
+                        <Link to="/mages" className={buttonVariants({ variant: 'ghost', size: 'icon', className: 'rounded-full size-8' })}>
                             <ArrowLeft className="w-5 h-5" />
                         </Link>
                         <h1 className="text-4xl font-bold text-primary">{mage.meta.title || id}</h1>
                     </div>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-base-content/70 pl-12">
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground pl-12">
                         {mage.meta.author && (
                             <span className="flex items-center gap-1.5">
                                 <User className="w-4 h-4" />
@@ -67,20 +69,22 @@ export function MageDetailsPage() {
                     </div>
                 </div>
 
-                <button onClick={handleDownload} className="btn btn-primary">
+                <Button onClick={handleDownload}>
                     <Download className="w-4 h-4 mr-2" />
                     Download Config
-                </button>
+                </Button>
             </div>
 
             {/* Description */}
             {mage.meta.description && (
-                <div className="prose max-w-none bg-base-200 p-6 rounded-2xl border border-base-300">
-                    <h3 className="text-lg font-semibold mb-2">Description</h3>
-                    <p className="text-base-content/80 leading-relaxed text-lg">
-                        {mage.meta.description}
-                    </p>
-                </div>
+                <Card className="bg-muted/60 rounded-2xl">
+                    <CardContent>
+                        <h3 className="text-lg font-semibold mb-2">Description</h3>
+                        <p className="text-foreground/80 leading-relaxed text-lg">
+                            {mage.meta.description}
+                        </p>
+                    </CardContent>
+                </Card>
             )}
 
             {/* Config Preview */}
@@ -90,7 +94,7 @@ export function MageDetailsPage() {
                     <h2>Configuration Preview</h2>
                 </div>
 
-                <div className="mockup-code bg-base-300 text-base-content overflow-hidden shadow-lg">
+                <div className="bg-muted text-foreground overflow-hidden shadow-lg rounded-xl border border-border">
                     <pre className="max-h-[600px] overflow-y-auto custom-scrollbar p-6">
                         <code>{jsonContent}</code>
                     </pre>
