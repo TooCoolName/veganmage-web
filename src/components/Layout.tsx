@@ -23,7 +23,6 @@ export function Layout() {
 
     const navLinks = [
         { path: '/', label: 'Home' },
-        { path: '/mages', label: 'Circle of Mages' },
     ];
 
     return (
@@ -131,10 +130,6 @@ export function Layout() {
                         <nav className="flex flex-wrap justify-center gap-8 text-sm font-medium">
                             <Link to="/" className="hover:text-primary transition-colors relative group">
                                 Home
-                                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full opacity-50" />
-                            </Link>
-                            <Link to="/mages" className="hover:text-primary transition-colors relative group">
-                                The Circle
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full opacity-50" />
                             </Link>
                         </nav>
