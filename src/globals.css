@@ -12,11 +12,11 @@ body,
 :root,
 [data-theme="custom-light"] {
     color-scheme: light;
-    --background: oklch(0.97 0.001 150);
+    --background: oklch(0.95 0.015 150);
     --foreground: oklch(25% 0.01 150);
-    --card: oklch(0.99 0.001 150);
+    --card: oklch(0.97 0.015 150);
     --card-foreground: oklch(25% 0.01 150);
-    --popover: oklch(1 0 150);
+    --popover: oklch(0.97 0.015 150);
     --popover-foreground: oklch(25% 0.01 150);
     --primary: oklch(62% 0.17 148.958);
     --primary-foreground: oklch(100% 0 0);
@@ -36,11 +36,11 @@ body,
 
 [data-theme="custom-dark"] {
     color-scheme: dark;
-    --background: oklch(18% 0.01 150);
+    --background: oklch(15% 0.015 150);
     --foreground: oklch(90% 0.01 150);
-    --card: oklch(23% 0.01 150);
+    --card: oklch(19% 0.015 150);
     --card-foreground: oklch(90% 0.01 150);
-    --popover: oklch(23% 0.01 150);
+    --popover: oklch(19% 0.015 150);
     --popover-foreground: oklch(90% 0.01 150);
     --primary: oklch(62% 0.17 148.958);
     --primary-foreground: oklch(10% 0.05 150);
@@ -88,7 +88,7 @@ select:focus-within {
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
-    --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-pulse-slow: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .bg-grid-pattern {
