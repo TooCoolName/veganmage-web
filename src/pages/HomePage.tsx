@@ -59,7 +59,7 @@ export function HomePage() {
 
             <motion.h1
               variants={itemVariants}
-              className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent drop-shadow-sm"
+              className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent drop-shadow-sm"
             >
               AI Meets Veganism
             </motion.h1>
