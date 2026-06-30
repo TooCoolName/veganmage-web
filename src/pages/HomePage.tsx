@@ -34,7 +34,7 @@ export function HomePage() {
       className="space-y-24 pb-20"
     >
       {/* Hero Section */}
-      <div className="min-h-[70vh] rounded-3xl bg-muted/30 overflow-hidden relative border border-border/60 flex items-center justify-center">
+      <div className="min-h-[70vh] rounded-3xl bg-card/20 overflow-hidden relative border border-border/60 flex items-center justify-center shadow-sm">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
         <div className="text-center max-w-4xl relative z-10 px-6 py-12">
           <div className="flex flex-col items-center">
