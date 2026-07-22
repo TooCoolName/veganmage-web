@@ -4,11 +4,9 @@
 
 Vegan Mage is a free browser extension made by an independent developer. There's no account or sign-in, and Vegan Mage doesn't use your name or email. Contact: veganmage@proton.me.
 
-Vegan Mage only reads a page when you explicitly activate it there (for example, by right-clicking and choosing Vegan Mage). It does not monitor your browsing or run in the background on sites you visit.
-
 Some of the extension runs locally in your browser. When you use AI features, your prompt — which can include text from the page you're viewing — is sent to the Vegan Mage server and then, through a **third-party AI routing service**, to a **language-model provider** that generates the response. Those are third parties. Both operate under a **Zero Data Retention (ZDR)** policy, so they don't keep your prompt after answering — but they do receive and process it to produce the response. Vegan Mage doesn't store your prompts or outputs.
 
-(This replaces older wording that said everything runs locally and nothing is shared — that wasn't accurate for AI features.)
+Vegan Mage only reads a page when you explicitly activate it there (for example, by right-clicking and choosing Vegan Mage). It does not monitor your browsing or run in the background on sites you visit.
 
 ## What's processed
 
