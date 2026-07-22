@@ -23,7 +23,6 @@ export function Layout() {
 
     const navLinks = [
         { path: '/', label: 'Home' },
-        { path: '/extension/privacy', label: 'Privacy Policy' },
     ];
 
     return (
