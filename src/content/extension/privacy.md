@@ -8,11 +8,11 @@ Everything Vegan Mage does happens locally in your browser — none of your cont
 
 ## What it works with
 
-When you activate the Mage on a page, it reads the part you're focused on to help you work with it. It also stores a few things for itself: a random install ID, the version of the terms you accepted, and your preferences. All of this lives in your browser.
+When you activate the Mage on a page, it reads the part you're focused on to help you work with it. It also stores only what it needs to provide the functionality shown in the extension — such as your preferences and the version of the terms you accepted. All of it lives in your browser.
 
 ## How long things are kept
 
-Your settings and install ID remain until you clear the extension's data or uninstall it.
+Your settings remain until you clear the extension's data or uninstall it.
 
 ## Your choices
 
