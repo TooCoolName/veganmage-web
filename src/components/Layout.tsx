@@ -132,7 +132,7 @@ export function Layout() {
                                 Home
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full opacity-50" />
                             </Link>
-                            <Link to="/extension/privacy" className="hover:text-primary transition-colors relative group">
+                            <Link to="/veganmage/privacy" className="hover:text-primary transition-colors relative group">
                                 Privacy Policy
                                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full opacity-50" />
                             </Link>

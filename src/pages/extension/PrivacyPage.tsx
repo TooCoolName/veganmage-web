@@ -1,16 +1,20 @@
 import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import privacyPolicy from "../../content/extension/privacy.md?raw";
 
-export function PrivacyPage() {
+interface PrivacyPageProps {
+  privacyPolicy: string;
+  productName: string;
+}
+
+export function PrivacyPage({ privacyPolicy, productName }: PrivacyPageProps) {
   useEffect(() => {
     const previousTitle = document.title;
-    document.title = "Privacy Policy | Vegan Mage";
+    document.title = `Privacy Policy | ${productName}`;
 
     return () => {
       document.title = previousTitle;
     };
-  }, []);
+  }, [productName]);
 
   return (
     <article className="mx-auto max-w-3xl rounded-3xl border border-border/60 bg-card/70 px-6 py-10 shadow-sm backdrop-blur-sm sm:px-10 md:py-14">
