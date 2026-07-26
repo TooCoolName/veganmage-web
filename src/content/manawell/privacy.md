@@ -9,20 +9,20 @@ ManaWell processes text **you provide** — text you type or paste, or text hand
 ## What's processed
 
 - **The text you submit and the AI output** — sent to the server, then to a third-party AI routing service and language-model provider, only to generate your response.
-- **Technical data** used to prevent abuse and rate-limit — including a pseudonymous per-installation identifier, a request signature, timestamp and nonce, and a coarse network prefix of your IP address (never your full IP).
+- **Technical data** used to prevent abuse and rate-limit — a pseudonymous per-installation identifier and a coarse network prefix of your IP address (never your full IP).
 - **Local settings** — a random install ID, your accepted-terms version, and your preferences stay in your browser.
 
 Because ManaWell processes whatever you give it, your submissions may contain personal information — treat them as sensitive. If your text contains anything you don't want to share with a third-party AI service, don't send it.
 
 ## Text received from other extensions
 
-ManaWell can receive text from another extension you connect to it. In that case the text — which may include content that extension has taken from a page you were viewing — reaches ManaWell only because you enabled that connection and chose to send it. ManaWell treats it the same as text you type: it's transmitted only to generate a response, and isn't stored.
+ManaWell can receive text from another extension you connect to it. What that extension sends, and when, is controlled by that extension — not by ManaWell — so check its own terms and privacy policy for what it passes along. However the text reaches ManaWell, it's treated the same as text you type: transmitted only to generate a response, and not stored.
 
 ## Third parties
 
 A **third-party AI routing service** passes your text to a **language-model provider**. ManaWell enforces the routing service's ZDR-only setting — at both the account level and on each request — so requests go only to providers that don't store your data. The routing service keeps billing metadata (like timestamps and token counts) but doesn't log your text; the model provider generates the response and, under ZDR, keeps nothing afterward. To do this, they may process your text outside the EEA (for example, in the US), but only briefly and without retaining it.
 
-**Hosting** is provided by a third-party provider with servers in Germany (EEA).
+**Hosting** is provided by a third-party provider with servers in the EEA.
 
 ## How long things are kept
 
