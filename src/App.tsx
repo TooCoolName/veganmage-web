@@ -19,6 +19,10 @@ function App() {
             path="veganmage/privacy"
             element={<PrivacyPage privacyPolicy={veganMagePrivacyPolicy} productName="Vegan Mage" />}
           />
+          <Route
+            path="extension/privacy"
+            element={<PrivacyPage privacyPolicy={veganMagePrivacyPolicy} productName="Vegan Mage" />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
