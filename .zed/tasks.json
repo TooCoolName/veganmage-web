@@ -1,0 +1,137 @@
+[
+  {
+    "label": "DevContainer: start",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": ["start", "$ZED_WORKTREE_ROOT"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "env": {
+      "DEV_PORT": "5173"
+    },
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "no_focus",
+    "hide": "never"
+  },
+  {
+    "label": "DevContainer: run webpage",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": [
+      "exec",
+      "$ZED_WORKTREE_ROOT",
+      "--",
+      "bun",
+      "run",
+      "dev",
+      "--",
+      "--host",
+      "0.0.0.0"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "Check: lint",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": ["exec", "$ZED_WORKTREE_ROOT", "--", "bun", "run", "lint"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "save": "all"
+  },
+  {
+    "label": "Check: types",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": [
+      "exec",
+      "$ZED_WORKTREE_ROOT",
+      "--",
+      "bun",
+      "run",
+      "typecheck"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "save": "all"
+  },
+  {
+    "label": "Build: production webpage",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": [
+      "build-prod",
+      "$ZED_WORKTREE_ROOT",
+      "--",
+      "bun",
+      "run",
+      "build"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never",
+    "show_command": false,
+    "save": "all"
+  },
+  {
+    "label": "Preview: production webpage",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": [
+      "exec",
+      "$ZED_WORKTREE_ROOT",
+      "--",
+      "bun",
+      "run",
+      "preview",
+      "--",
+      "--host",
+      "0.0.0.0"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "DevContainer: bun install",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": ["exec", "$ZED_WORKTREE_ROOT", "--", "bun", "install"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "DevContainer: shell",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": ["shell", "$ZED_WORKTREE_ROOT"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "DevContainer: status",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": ["status", "$ZED_WORKTREE_ROOT"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "DevContainer: stop",
+    "command": "$HOME/.local/bin/zed-bun",
+    "args": ["stop", "$ZED_WORKTREE_ROOT"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  }
+]
