@@ -1,0 +1,94 @@
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - link "Logo Vegan Mage" [ref=e7] [cursor=pointer]:
+      - /url: /
+      - img "Logo" [ref=e10]
+      - generic [ref=e11]: Vegan Mage
+    - list [ref=e13]:
+      - listitem [ref=e14]:
+        - link "Home" [ref=e15] [cursor=pointer]:
+          - /url: /
+    - button "Toggle Theme" [ref=e17]:
+      - img [ref=e18]
+  - main [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - img "Vegan Mage Mascot" [ref=e30]
+          - generic [ref=e31]: v1.0
+        - heading "AI Meets Veganism" [level=1] [ref=e32]
+        - paragraph [ref=e33]:
+          - text: A powerful fusion of Artificial Intelligence and vegan activism.
+          - generic [ref=e34]: Empowering advocates to help every animal.
+        - generic [ref=e35]:
+          - link "Add to Chrome" [ref=e36] [cursor=pointer]:
+            - /url: https://chromewebstore.google.com/detail/vegan-mage/pijaleolnpgboehkbacgnidlpombkekj
+            - img [ref=e37]
+            - text: Add to Chrome
+            - img [ref=e42]
+          - generic [ref=e45]: Get the Vegan Mage browser extension
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]: The Vision
+          - heading "Empowering Advocates" [level=2] [ref=e51]
+          - paragraph [ref=e52]: Vegan Mage is the merge of Artificial Intelligence with vegan activism. We exist to empower vegan advocates via different tools, evolving constantly to enhance human potential and help every animal.
+          - list [ref=e53]:
+            - listitem [ref=e54]:
+              - img [ref=e56]
+              - generic [ref=e58]:
+                - heading "The Browser Extension" [level=3] [ref=e59]
+                - paragraph [ref=e60]: Your digital companion that brings advocacy tools directly to your browsing experience.
+            - listitem [ref=e61]:
+              - img [ref=e63]
+              - generic [ref=e65]:
+                - heading "Advocacy Support" [level=3] [ref=e66]
+                - paragraph [ref=e67]: Get practical help shaping compassionate, evidence-informed responses when conversations matter.
+            - listitem [ref=e68]:
+              - img [ref=e70]
+              - generic [ref=e78]:
+                - heading "Constant Evolution" [level=3] [ref=e79]
+                - paragraph [ref=e80]: Always improving to provide more effective, accessible support for the animals.
+        - generic [ref=e84]:
+          - img [ref=e87]
+          - generic [ref=e89]:
+            - heading "Built for Advocates" [level=3] [ref=e90]
+            - paragraph [ref=e91]: Vegan Mage helps advocates respond with clarity, compassion, and stronger arguments wherever outreach happens.
+          - generic [ref=e92]:
+            - generic [ref=e93]: Compassion
+            - generic [ref=e94]: Evidence
+            - generic [ref=e95]: Action
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - img [ref=e100]
+              - text: Available on the Chrome Web Store
+            - heading "Put Vegan Mage in your browser" [level=2] [ref=e105]
+            - paragraph [ref=e106]: Bring compassionate, evidence-informed advocacy support to the conversations already happening online.
+          - link "Get the extension Add to Chrome" [ref=e107] [cursor=pointer]:
+            - /url: https://chromewebstore.google.com/detail/vegan-mage/pijaleolnpgboehkbacgnidlpombkekj
+            - img [ref=e109]
+            - generic [ref=e114]:
+              - generic [ref=e115]: Get the extension
+              - text: Add to Chrome
+            - img [ref=e116]
+        - img [ref=e120]
+  - contentinfo [ref=e122]:
+    - generic [ref=e124]:
+      - generic [ref=e125]:
+        - link "Vegan Mage Logo" [ref=e126] [cursor=pointer]:
+          - /url: /
+          - img "Vegan Mage Logo" [ref=e128]
+        - generic [ref=e130]:
+          - heading "Vegan Mage" [level=3] [ref=e131]
+          - paragraph [ref=e132]: Using technology to alleviate suffering and cultivate compassion.
+      - navigation [ref=e133]:
+        - link "Home" [ref=e134] [cursor=pointer]:
+          - /url: /
+          - text: Home
+      - generic [ref=e136]:
+        - paragraph [ref=e137]: © 2026 Vegan Mage. All rights reserved.
+        - paragraph [ref=e138]:
+          - text: Made with
+          - img [ref=e139]
+          - text: for all beings

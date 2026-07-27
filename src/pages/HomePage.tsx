@@ -1,7 +1,12 @@
-import { Brain, HeartHandshake, Zap } from "lucide-react";
+import { ArrowUpRight, Brain, Chrome, HeartHandshake, Zap } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { Badge } from "../components/ui/badge";
+import { buttonVariants } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
+import { cn } from "../lib/utils";
+
+const chromeWebStoreUrl =
+  "https://chromewebstore.google.com/detail/vegan-mage/pijaleolnpgboehkbacgnidlpombkekj";
 
 export function HomePage() {
   const containerVariants: Variants = {
@@ -74,6 +79,28 @@ export function HomePage() {
                 Empowering advocates to help every animal.
               </span>
             </motion.p>
+
+            <motion.div
+              variants={itemVariants}
+              className="mt-8 flex flex-col items-center gap-3"
+            >
+              <a
+                href={chromeWebStoreUrl}
+                target="_blank"
+                rel="noreferrer"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "h-12 rounded-full px-7 text-base shadow-lg shadow-primary/20 hover:-translate-y-0.5",
+                )}
+              >
+                <Chrome className="size-5" />
+                Add to Chrome
+                <ArrowUpRight className="size-4 opacity-70" />
+              </a>
+              <span className="text-xs font-medium text-muted-foreground">
+                Get the Vegan Mage browser extension
+              </span>
+            </motion.div>
           </div>
         </div>
 
@@ -176,14 +203,40 @@ export function HomePage() {
       {/* CTA Section */}
       <motion.div
         variants={itemVariants}
-        className="bg-primary text-primary-foreground rounded-[2rem] p-10 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-primary/15"
+        className="bg-primary text-primary-foreground rounded-[2rem] p-10 md:p-20 relative overflow-hidden shadow-2xl shadow-primary/15"
       >
-        <div className="relative z-10 max-w-3xl mx-auto space-y-8">
-          <h2 className="text-4xl md:text-5xl font-bold">Ready to Evolve?</h2>
-          <p className="text-xl md:text-2xl opacity-90">
-            Bring smarter tools into your advocacy. The animals need your voice,
-            and every conversation can matter.
-          </p>
+        <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center gap-10 text-center md:flex-row md:justify-between md:text-left">
+          <div className="max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-3 py-1 text-sm font-semibold">
+              <Chrome className="size-4" />
+              Available on the Chrome Web Store
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Put Vegan Mage in your browser
+            </h2>
+            <p className="text-lg md:text-xl opacity-90 leading-relaxed">
+              Bring compassionate, evidence-informed advocacy support to the
+              conversations already happening online.
+            </p>
+          </div>
+
+          <a
+            href={chromeWebStoreUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex min-w-fit items-center gap-3 rounded-xl bg-card px-6 py-4 font-bold text-card-foreground shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-foreground/40"
+          >
+            <span className="flex size-10 items-center justify-center rounded-full bg-primary-card text-primary">
+              <Chrome className="size-5" />
+            </span>
+            <span className="text-left leading-tight">
+              <span className="block text-xs font-medium text-muted-foreground">
+                Get the extension
+              </span>
+              Add to Chrome
+            </span>
+            <ArrowUpRight className="size-5 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
         </div>
 
         {/* Background Pattern */}
