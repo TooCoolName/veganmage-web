@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="9 9 108 108">
+  <defs>
+    <linearGradient id="inner" x1="45" y1="48" x2="82" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffd85a"/>
+      <stop offset="1" stop-color="#c88700"/>
+    </linearGradient>
+    <path id="outer-sector" d="M64 64 100.4 43C104 49 114 54 114 64s-10 15-13.6 21Z"/>
+    <path id="inner-sector" d="M64 64 87.4 50.5C90 55 99 58 99 64s-9 9-11.6 13.5Z"/>
+  </defs>
+  <g fill="#19ae61">
+    <use href="#outer-sector"/><use href="#outer-sector" transform="rotate(60 64 64)"/><use href="#outer-sector" transform="rotate(120 64 64)"/><use href="#outer-sector" transform="rotate(180 64 64)"/><use href="#outer-sector" transform="rotate(240 64 64)"/><use href="#outer-sector" transform="rotate(300 64 64)"/>
+  </g>
+  <circle cx="64" cy="64" r="42" fill="#19ae61"/>
+  <g fill="#123c2b">
+    <use href="#inner-sector"/><use href="#inner-sector" transform="rotate(60 64 64)"/><use href="#inner-sector" transform="rotate(120 64 64)"/><use href="#inner-sector" transform="rotate(180 64 64)"/><use href="#inner-sector" transform="rotate(240 64 64)"/><use href="#inner-sector" transform="rotate(300 64 64)"/>
+  </g>
+  <circle cx="64" cy="64" r="27" fill="#123c2b"/>
+  <path d="M38 64c7-11 16-17 26-17s19 6 26 17c-7 11-16 17-26 17S45 75 38 64Z" fill="url(#inner)"/>
+  <path d="M45 64c6-6 12-9 19-9s13 3 19 9c-6 6-12 9-19 9s-13-3-19-9Z" fill="#ffe47c" fill-opacity=".55"/>
+  <path d="M64 53c6 5 9 9 9 13 0 5-4 9-9 9s-9-4-9-9c0-4 3-8 9-13Z" fill="#123c2b"/>
+  <circle cx="61" cy="62" r="2.5" fill="#ffd85a"/>
+</svg>
