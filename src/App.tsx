@@ -3,7 +3,7 @@ import { Layout } from "./components/Layout";
 import { PrivacyPage } from "./pages/extension/PrivacyPage";
 import { HomePage } from "./pages/HomePage";
 import manawellPrivacyPolicy from "./content/manawell/privacy.md?raw";
-import veganMagePrivacyPolicy from "./content/extension/privacy.md?raw";
+import veganMagePrivacyPolicy from "./content/veganmage/privacy.md?raw";
 
 function App() {
   return (
