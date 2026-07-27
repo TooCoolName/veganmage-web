@@ -10,8 +10,8 @@ export const buttonVariants = cva(
         default:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+          "bg-primary-card text-foreground shadow-xs hover:bg-primary-card/80",
+        ghost: "hover:bg-primary-card hover:text-foreground",
         outline:
           "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
       },

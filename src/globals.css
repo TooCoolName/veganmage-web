@@ -12,49 +12,53 @@ body,
 :root,
 [data-theme="custom-light"] {
     color-scheme: light;
-    --background: oklch(0.95 0.015 150);
+    --background: oklch(0.96 0.002 150);
     --foreground: oklch(25% 0.01 150);
-    --card: oklch(0.97 0.015 150);
+    --card: oklch(0.99 0.002 150);
     --card-foreground: oklch(25% 0.01 150);
-    --popover: oklch(0.97 0.015 150);
+    --popover: oklch(0.99 0.002 150);
     --popover-foreground: oklch(25% 0.01 150);
-    --primary: oklch(62% 0.17 148.958);
-    --primary-foreground: oklch(100% 0 0);
-    --secondary: oklch(75% 0.15 85);
-    --secondary-foreground: oklch(100% 0 0);
-    --muted: oklch(0.94 0.005 150);
-    --muted-foreground: oklch(46% 0.01 150);
-    --accent: oklch(70% 0.12 185.713);
-    --accent-foreground: oklch(100% 0 0);
+    --primary: oklch(68% 0.17 150);
+    --primary-foreground: oklch(97% 0.01 150);
+    --accent-card: oklch(96% 0.045 100);
+    --primary-card: oklch(95% 0.025 150);
+    --muted: oklch(0.92 0.002 150);
+    --muted-card: oklch(93% 0.002 150);
+    --muted-foreground: oklch(46% 0 0);
+    --accent: oklch(88% 0.19 90);
+    --accent-foreground: oklch(99% 0.01 150);
     --destructive: oklch(62% 0.2 25);
-    --destructive-foreground: oklch(100% 0 0);
-    --border: oklch(0.9 0.001 150);
-    --input: oklch(0.88 0.001 150);
-    --ring: oklch(62% 0.17 148.958);
+    --destructive-foreground: oklch(20% 0.01 150);
+    --border: oklch(0.82 0.02 150);
+    --input: oklch(0.88 0.018 150);
+    --ring: oklch(72% 0.17 150);
+    --tint-base: oklch(100% 0 0);
     --radius: 0.5rem;
 }
 
 [data-theme="custom-dark"] {
     color-scheme: dark;
-    --background: oklch(15% 0.015 150);
+    --background: oklch(17% 0.006 150);
     --foreground: oklch(90% 0.01 150);
-    --card: oklch(19% 0.015 150);
+    --card: oklch(19% 0.005 150);
     --card-foreground: oklch(90% 0.01 150);
-    --popover: oklch(19% 0.015 150);
+    --popover: oklch(19% 0.005 150);
     --popover-foreground: oklch(90% 0.01 150);
-    --primary: oklch(62% 0.17 148.958);
-    --primary-foreground: oklch(10% 0.05 150);
-    --secondary: oklch(75% 0.15 85);
-    --secondary-foreground: oklch(10% 0.05 150);
-    --muted: oklch(27% 0.005 150);
-    --muted-foreground: oklch(72% 0.01 150);
-    --accent: oklch(70% 0.12 185.713);
-    --accent-foreground: oklch(10% 0.03 185);
+    --primary: oklch(64% 0.17 150);
+    --primary-foreground: oklch(1% 0.01 150);
+    --accent-card: oklch(24% 0.03 100);
+    --primary-card: oklch(24% 0.035 150);
+    --muted: oklch(22% 0.006 150);
+    --muted-card: oklch(22% 0.005 150);
+    --muted-foreground: oklch(72% 0 0);
+    --accent: oklch(88% 0.19 90);
+    --accent-foreground: oklch(1% 0.01 150);
     --destructive: oklch(65% 0.18 25);
-    --destructive-foreground: oklch(10% 0.04 22);
+    --destructive-foreground: oklch(1% 0.01 150);
     --border: oklch(30% 0.01 150);
-    --input: oklch(33% 0.01 150);
-    --ring: oklch(62% 0.17 148.958);
+    --input: oklch(33% 0.025 150);
+    --ring: oklch(62% 0.17 150);
+    --tint-base: oklch(4% 0 0);
 }
 
 select:focus,
@@ -73,9 +77,10 @@ select:focus-within {
     --color-popover-foreground: var(--popover-foreground);
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
+    --color-accent-card: var(--accent-card);
+    --color-primary-card: var(--primary-card);
     --color-muted: var(--muted);
+    --color-muted-card: var(--muted-card);
     --color-muted-foreground: var(--muted-foreground);
     --color-accent: var(--accent);
     --color-accent-foreground: var(--accent-foreground);
@@ -88,7 +93,7 @@ select:focus-within {
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
-    --animate-pulse-slow: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-pulse-slow: pulse 12s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .bg-grid-pattern {
@@ -96,4 +101,29 @@ select:focus-within {
         linear-gradient(to right, currentColor 1px, transparent 1px),
         linear-gradient(to bottom, currentColor 1px, transparent 1px);
     background-size: 40px 40px;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--muted-foreground) 28%, transparent) transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    min-height: 3rem;
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-color: color-mix(in oklch, var(--muted-foreground) 28%, transparent);
+    background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklch, var(--muted-foreground) 42%, transparent);
 }

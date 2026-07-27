@@ -28,16 +28,16 @@ export function Layout() {
     return (
         <div className="min-h-screen flex flex-col bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground transition-colors duration-300">
             {/* Floating Navbar */}
-            <div className="sticky top-0 z-50 w-full mb-4">
-                <div className="flex h-16 items-center justify-between bg-card/80 backdrop-blur-xl shadow-lg border-b border-border/60 w-full transition-all duration-300 px-4">
+            <div className="sticky top-0 z-50 w-full">
+                <div className="flex h-18 items-center justify-between bg-background/85 backdrop-blur-xl border-b border-border/70 w-full transition-all duration-300 px-4 md:px-8">
                     <div className="flex items-center">
                         <Link to="/" className="flex items-center gap-2 text-xl font-bold transition-opacity hover:opacity-90">
                             <div>
-                                <div className="rounded-full w-10 shadow-lg ring ring-primary ring-offset-card ring-offset-2 p-1.5 bg-card">
+                                <div className="rounded-full w-10 shadow-lg shadow-primary/10 ring ring-primary/60 ring-offset-card ring-offset-2 p-1.5 bg-card">
                                     <img src="/icon128.png" alt="Logo" className="opacity-90 object-contain" />
                                 </div>
                             </div>
-                            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-extrabold tracking-tight hidden sm:inline-block">
+                            <span className="text-foreground font-extrabold tracking-tight hidden sm:inline-block">
                                 Vegan Mage
                             </span>
                         </Link>
@@ -64,7 +64,7 @@ export function Layout() {
                     <div className="flex items-center gap-2">
 
                         <button onClick={toggleTheme} className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'rounded-full hover:scale-110 active:scale-95')} aria-label="Toggle Theme">
-                            {theme === 'custom-dark' ? <Sun className="w-6 h-6 text-secondary" /> : <Moon className="w-6 h-6 text-primary" />}
+                            {theme === 'custom-dark' ? <Sun className="w-6 h-6 text-accent" /> : <Moon className="w-6 h-6 text-primary" />}
                         </button>
                         <div className="lg:hidden">
                             <button tabIndex={0} className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'rounded-full')} onClick={toggleMenu}>
@@ -101,7 +101,7 @@ export function Layout() {
                 </AnimatePresence>
             </div>
 
-            <main className="flex-grow container mx-auto px-4 md:px-8 py-8 md:py-12 max-w-7xl">
+            <main className="flex-grow container mx-auto px-4 md:px-8 py-6 md:py-10 max-w-7xl">
                 <Outlet />
             </main>
 
@@ -111,13 +111,13 @@ export function Layout() {
                         {/* Brand Section */}
                         <div className="flex flex-col items-center gap-4">
                             <Link to="/" className="group relative">
-                                <div className="w-16 h-16 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-full flex items-center justify-center transform transition-transform group-hover:scale-105 group-hover:rotate-3 duration-300 border border-border/60 p-3">
+                                <div className="w-16 h-16 bg-gradient-to-tr from-primary-card to-accent-card rounded-full flex items-center justify-center transform transition-transform group-hover:scale-105 group-hover:rotate-3 duration-300 border border-border/60 p-3">
                                     <img src="/icon128.png" alt="Vegan Mage Logo" className="w-full h-full opacity-90 object-contain" />
                                 </div>
                                 <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
                             </Link>
                             <div>
-                                <h3 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                                <h3 className="text-xl font-bold text-foreground">
                                     Vegan Mage
                                 </h3>
                                 <p className="text-sm text-muted-foreground mt-2 max-w-xs mx-auto leading-relaxed">

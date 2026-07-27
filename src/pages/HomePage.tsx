@@ -31,19 +31,20 @@ export function HomePage() {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="space-y-24 pb-20"
+      className="space-y-20 pb-16 md:space-y-28 md:pb-24"
     >
       {/* Hero Section */}
-      <div className="min-h-[70vh] rounded-3xl bg-card/20 overflow-hidden relative border border-border/60 flex items-center justify-center shadow-sm">
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
-        <div className="text-center max-w-4xl relative z-10 px-6 py-12">
+      <div className="min-h-[72vh] rounded-[2rem] bg-card overflow-hidden relative border border-border/70 flex items-center justify-center shadow-[0_24px_80px_-48px_color-mix(in_oklch,var(--foreground)_30%,transparent)]">
+        <div className="absolute inset-0 bg-grid-pattern text-primary opacity-[0.055]"></div>
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-80" />
+        <div className="text-center max-w-4xl relative z-10 px-6 py-16 md:py-20">
           <div className="flex flex-col items-center">
             <motion.div
               whileHover={{ scale: 1.05, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="mb-8 relative"
+              className="mb-10 relative"
             >
-              <div className="w-32 h-32 md:w-40 md:h-40 p-1 bg-gradient-to-tr from-primary to-secondary rounded-full shadow-2xl">
+              <div className="w-32 h-32 md:w-40 md:h-40 p-1 bg-gradient-to-tr from-primary via-primary to-accent rounded-full shadow-2xl shadow-primary/20">
                 <div className="w-full h-full bg-card rounded-full flex items-center justify-center overflow-hidden p-1 pt-5">
                   <img
                     src="/icon330.png"
@@ -59,14 +60,14 @@ export function HomePage() {
 
             <motion.h1
               variants={itemVariants}
-              className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent drop-shadow-sm"
+              className="text-5xl md:text-7xl font-black mb-6 tracking-[-0.045em] leading-[0.95] text-foreground"
             >
               AI Meets Veganism
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-xl md:text-2xl opacity-80 mb-10 max-w-2xl text-balance leading-relaxed"
+              className="text-lg md:text-2xl text-muted-foreground max-w-2xl text-balance leading-relaxed"
             >
               A powerful fusion of Artificial Intelligence and vegan activism.
               <span className="font-semibold text-primary block mt-2">
@@ -77,8 +78,8 @@ export function HomePage() {
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div>
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow delay-1000"></div>
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/16 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div>
+        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-accent/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow delay-1000"></div>
       </div>
 
       {/* Mission Section */}
@@ -87,7 +88,7 @@ export function HomePage() {
         <motion.div variants={itemVariants} className="flex-1 space-y-6">
           <Badge
             variant="outline"
-            className="mb-2 border-secondary text-secondary"
+            className="mb-2 border-primary/40 bg-primary-card text-primary"
           >
             The Vision
           </Badge>
@@ -116,7 +117,7 @@ export function HomePage() {
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <div className="mt-1 bg-secondary/10 p-2 rounded-full text-secondary">
+              <div className="mt-1 bg-accent-card p-2 rounded-full text-foreground">
                 <HeartHandshake size={20} />
               </div>
               <div>
@@ -128,7 +129,7 @@ export function HomePage() {
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <div className="mt-1 bg-accent/10 p-2 rounded-full text-accent">
+              <div className="mt-1 bg-muted-card p-2 rounded-full text-muted-foreground">
                 <Brain size={20} />
               </div>
               <div>
@@ -143,10 +144,10 @@ export function HomePage() {
         </motion.div>
 
         <motion.div variants={itemVariants} className="flex-1 relative">
-          <Card className="shadow-2xl border-border/60 overflow-hidden relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 z-0"></div>
+          <Card className="shadow-2xl shadow-primary/5 border-border/70 overflow-hidden relative bg-card">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-card via-transparent to-accent-card z-0"></div>
             <CardContent className="p-10 relative z-10 flex flex-col items-center text-center space-y-6">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary to-secondary p-1 shadow-xl">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary to-accent p-1 shadow-xl">
                 <div className="w-full h-full bg-card rounded-full flex items-center justify-center">
                   <HeartHandshake size={48} className="text-primary" />
                 </div>
@@ -175,7 +176,7 @@ export function HomePage() {
       {/* CTA Section */}
       <motion.div
         variants={itemVariants}
-        className="bg-primary text-primary-foreground rounded-3xl p-12 md:p-20 text-center relative overflow-hidden"
+        className="bg-primary text-primary-foreground rounded-[2rem] p-10 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-primary/15"
       >
         <div className="relative z-10 max-w-3xl mx-auto space-y-8">
           <h2 className="text-4xl md:text-5xl font-bold">Ready to Evolve?</h2>
