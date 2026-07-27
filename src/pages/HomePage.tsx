@@ -57,9 +57,6 @@ export function HomePage() {
                   />
                 </div>
               </div>
-              <Badge className="absolute -bottom-2 -right-2 shadow-lg rotate-12 text-sm px-3 py-1">
-                v1.0
-              </Badge>
             </motion.div>
 
             <motion.h1
