@@ -39,9 +39,8 @@ export function HomePage() {
       className="space-y-20 pb-16 md:space-y-28 md:pb-24"
     >
       {/* Hero Section */}
-      <div className="min-h-[72vh] rounded-[2rem] bg-card overflow-hidden relative border border-border/70 flex items-center justify-center shadow-[0_24px_80px_-48px_color-mix(in_oklch,var(--foreground)_30%,transparent)]">
-        <div className="absolute inset-0 bg-grid-pattern text-primary opacity-[0.055]"></div>
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-80" />
+      <div className="min-h-[72vh] rounded-[2rem] bg-card overflow-hidden relative border border-primary/25 dark:border-border/70 flex items-center justify-center shadow-[0_24px_80px_-48px_color-mix(in_oklch,var(--foreground)_30%,transparent)]">
+        <div className="absolute inset-0 bg-grid-pattern text-primary opacity-[0.11] dark:opacity-[0.055]"></div>
         <div className="text-center max-w-4xl relative z-10 px-6 py-16 md:py-20">
           <div className="flex flex-col items-center">
             <motion.div
@@ -50,7 +49,7 @@ export function HomePage() {
               className="mb-10 relative"
             >
               <div className="w-32 h-32 md:w-40 md:h-40 p-1 bg-gradient-to-tr from-primary via-primary to-accent rounded-full shadow-2xl shadow-primary/20">
-                <div className="w-full h-full bg-card rounded-full flex items-center justify-center overflow-hidden p-1 pt-5">
+                <div className="w-full h-full bg-card rounded-full flex items-center justify-center overflow-hidden p-1">
                   <img
                     src="/icon330.png"
                     alt="Vegan Mage Mascot"

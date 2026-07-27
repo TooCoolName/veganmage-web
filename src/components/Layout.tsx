@@ -32,11 +32,7 @@ export function Layout() {
                 <div className="flex h-18 items-center justify-between bg-background/85 backdrop-blur-xl border-b border-border/70 w-full transition-all duration-300 px-4 md:px-8">
                     <div className="flex items-center">
                         <Link to="/" className="flex items-center gap-2 text-xl font-bold transition-opacity hover:opacity-90">
-                            <div>
-                                <div className="rounded-full w-10 shadow-lg shadow-primary/10 ring ring-primary/60 ring-offset-card ring-offset-2 p-1.5 bg-card">
-                                    <img src="/icon128.png" alt="Logo" className="opacity-90 object-contain" />
-                                </div>
-                            </div>
+                            <img src="/icon128.png" alt="Logo" className="size-10 object-contain opacity-90" />
                             <span className="text-foreground font-extrabold tracking-tight hidden sm:inline-block">
                                 Vegan Mage
                             </span>
@@ -44,14 +40,14 @@ export function Layout() {
                     </div>
 
                     <div className="hidden lg:flex">
-                        <ul className="flex px-1 gap-2 bg-muted/50 rounded-full p-1.5 backdrop-blur-sm border border-border/60">
+                        <ul className="flex items-center gap-1">
                             {navLinks.map((link) => (
                                 <li key={link.path}>
                                     <Link
                                         to={link.path}
-                                        className={`rounded-full px-6 font-medium transition-all duration-200 ${location.pathname === link.path
-                                             ? 'bg-primary text-primary-foreground shadow-md'
-                                             : 'hover:bg-muted hover:text-primary'
+                                        className={`rounded-lg px-4 py-2 text-sm font-semibold transition-colors duration-200 ${location.pathname === link.path
+                                             ? 'bg-primary/12 text-primary dark:bg-primary/18'
+                                             : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
                                              }`}
                                     >
                                         {link.label}
