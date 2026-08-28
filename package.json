@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "generate:heralds": "node scripts/generate-heralds.mjs",
+    "prebuild": "bun run generate:heralds",
     "build": "tsc -b && vite build",
     "lint": "oxlint --deny-warnings .",
     "typecheck": "tsc -b",

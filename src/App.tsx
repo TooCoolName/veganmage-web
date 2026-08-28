@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { PrivacyPage } from "./pages/extension/PrivacyPage";
+import { HeraldsPage } from "./pages/HeraldsPage";
 import { HomePage } from "./pages/HomePage";
 import veganMagePrivacyPolicy from "./content/veganmage/privacy.md?raw";
 
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="heralds" element={<HeraldsPage />} />
           <Route
             path="veganmage/privacy"
             element={
