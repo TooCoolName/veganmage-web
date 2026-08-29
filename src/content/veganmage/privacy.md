@@ -2,13 +2,13 @@
 
 **Last updated:** 13 August 2026
 
-Vegan Mage is a free browser extension made by an independent developer. There's no account or sign-in, and it doesn't use your name or email. Contact: veganmage@proton.me.
+Vegan Mage is a free browser extension made by an independent developer. Contact: veganmage@proton.me.
 
-Most of what Vegan Mage does happens locally in your browser — reading and displaying page content stays on your device and isn't sent anywhere. It only works on sites where you've explicitly enabled it (by right-clicking and turning it on). On those sites it reads the content you're currently viewing so it can show it in the side panel, refreshing as you click around the page — so it's keeping up with what you're looking at, not reading just once. It doesn't run on sites you haven't enabled it for, and it doesn't track which sites you visit. The exceptions are the built-in AI feature (Cast), which sends text you provide to Vegan Mage's server, and fetching predefined settings and customizations from the server — see below for how those work.
+Most of what Vegan Mage does happens locally in your browser — reading and displaying page content stays on your device and isn't sent anywhere. It only works on sites where you've explicitly enabled it (by right-clicking and turning it on). On those sites it reads the content you're currently viewing so it can show it in the side panel, refreshing as you select text around the page — so it's keeping up with what you're looking at, not reading just once. It doesn't run on sites you haven't enabled it for, and it doesn't track which sites you visit. The exceptions are the built-in AI feature (Cast), which sends text you provide to Vegan Mage's server, and fetching predefined settings and customizations from the server — see below for how those work.
 
 ## What it works with
 
-On a site where you've enabled it, Vegan Mage reads the content you're currently viewing — updating as you click through the page — so it can display it in the side panel and help you work with it. This all happens on your device. It also stores only what it needs to provide the functionality shown in the extension — such as your preferences, the version of the terms you accepted, and a random install ID. All of it lives in your browser.
+On a site where you've enabled it, Vegan Mage reads the content you're currently viewing — updating as you select text through the page — so it can display it in the side panel and help you work with it. This all happens on your device. It also stores only what it needs to provide the functionality shown in the extension — such as your preferences, the version of the terms you accepted, and a random install ID. All of it lives in your browser.
 
 ## Settings and customizations
 
