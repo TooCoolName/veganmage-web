@@ -33,6 +33,7 @@ body,
     --input: oklch(0.88 0.018 150);
     --ring: oklch(72% 0.17 150);
     --tint-base: oklch(100% 0 0);
+    --abyss: oklch(26% 0.05 158);
     --radius: 0.5rem;
 }
 
@@ -93,14 +94,128 @@ select:focus-within {
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
     --animate-pulse-slow: pulse 12s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-marquee: marquee 36s linear infinite;
+    --animate-bounce-slow: bounce-slow 2.4s ease-in-out infinite;
+
+    @keyframes marquee {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    @keyframes bounce-slow {
+
+        0%,
+        100% {
+            transform: translateY(0);
+            opacity: .6;
+        }
+
+        50% {
+            transform: translateY(6px);
+            opacity: 1;
+        }
+    }
 }
 
-.bg-grid-pattern {
-    background-image:
-        linear-gradient(to right, currentColor 1px, transparent 1px),
-        linear-gradient(to bottom, currentColor 1px, transparent 1px);
-    background-size: 40px 40px;
+.hero-glow {
+    background:
+        radial-gradient(46% 40% at 76% 44%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 72%),
+        radial-gradient(38% 45% at 4% 98%, color-mix(in oklch, var(--accent) 14%, transparent), transparent 72%),
+        linear-gradient(90deg, color-mix(in oklch, var(--background) 88%, transparent) 0%, color-mix(in oklch, var(--background) 45%, transparent) 44%, transparent 74%),
+        linear-gradient(0deg, color-mix(in oklch, var(--background) 82%, transparent) 0%, transparent 30%);
+}
+
+/* Molten ribbon — a dark gold-veined strip between light sections. */
+.ribbon-dark {
+    background:
+        radial-gradient(60% 150% at 50% 50%, color-mix(in oklch, var(--accent) 13%, transparent), transparent 70%),
+        linear-gradient(180deg, oklch(15% 0.02 160) 0%, oklch(11% 0.02 160) 100%);
+}
+
+/* Lagoon — daylight water over the steps, lit from the top-left. */
+.lagoon-base {
+    background:
+        radial-gradient(50% 34% at 12% 6%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 70%),
+        radial-gradient(44% 30% at 88% 92%, color-mix(in oklch, var(--accent) 9%, transparent), transparent 70%),
+        linear-gradient(180deg,
+            var(--background) 0%,
+            color-mix(in oklch, var(--primary) 6%, var(--background)) 55%,
+            var(--background) 100%);
+}
+
+/* Abyss — flat deep water; all light comes from the live scene. */
+.abyss-base {
+    background:
+        radial-gradient(80% 55% at 50% 0%, color-mix(in oklch, var(--accent) 7%, transparent), transparent 60%),
+        var(--abyss);
+}
+
+/* Dawn — first light welling up under the CTA. */
+.dawn-base {
+    background:
+        radial-gradient(72% 92% at 50% 116%, color-mix(in oklch, var(--accent) 24%, transparent), transparent 65%),
+        linear-gradient(180deg,
+            var(--card) 0%,
+            color-mix(in oklch, var(--accent) 10%, var(--card)) 100%);
+}
+.band-deep-glyph {
+    filter: drop-shadow(0 0 60px color-mix(in oklch, var(--accent) 35%, transparent));
+    animation: pulse-deep 9s ease-in-out infinite;
+}
+
+@keyframes pulse-deep {
+
+    0%,
+    100% {
+        opacity: 0.75;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.footer-glow {
+    background:
+        radial-gradient(55% 90% at 84% 100%, color-mix(in oklch, var(--primary) 14%, transparent), transparent 72%),
+        radial-gradient(42% 70% at 8% 0%, color-mix(in oklch, var(--accent) 12%, transparent), transparent 70%);
+}
+
+.grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+        animation: none;
+    }
+
+    .band-deep-glyph {
+        animation: none;
+    }
+}
+
+/* Scroll-driven recolor of the hero pool: --pool-filter is fed by the
+   page scroll (green flow turns gold), so the hue truly changes instead
+   of sitting a gold layer on top of green. */
+.mage-pool {
+    filter: var(--pool-filter, none);
+}
+
+/* The weave trail replaces the pointer, so hide the native cursor while it runs. */
+body.mage-cursor-hidden,
+body.mage-cursor-hidden * {
+    cursor: none !important;
 }
 
 * {

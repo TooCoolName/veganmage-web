@@ -1,126 +1,225 @@
-import { BookOpen, CheckCircle2, FileCode2, Globe2, ScrollText, UserRound } from "lucide-react";
+import { Suspense, lazy, useEffect, useMemo, useRef } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { motion, type Variants } from "framer-motion";
+import { ArrowUpRight, BookOpen, Globe2, MessagesSquare, ScrollText } from "lucide-react";
 import { Badge } from "../components/ui/badge";
-import { Card, CardContent } from "../components/ui/card";
+import { DiscordIcon } from "../components/DiscordIcon";
+import { FinGlyph } from "../components/FinGlyph";
+import type { MageStation } from "../components/MageFinField";
 import { heraldSites, type Herald } from "../generated/heralds";
 
-function HeraldList({ heralds, type }: { heralds: Herald[]; type: "Name" | "Thread" }) {
-  const Icon = type === "Name" ? UserRound : ScrollText;
+const discordUrl = "https://discord.gg/3VjKKfF5As";
+
+const MageFinField = lazy(() =>
+  import("../components/MageFinField").then((m) => ({
+    default: m.MageFinField,
+  })),
+);
+
+const rise: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.12 * i,
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+};
+
+function HeraldList({ heralds }: { heralds: Herald[] }) {
+  const { t } = useTranslation();
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">
-        <Icon className="size-3.5" />
-        {type} herald{heralds.length === 1 ? "" : "s"}
-      </div>
-      {heralds.map((herald) => (
-        <div key={herald.file} className="rounded-xl border border-border/70 bg-background/60 p-3">
-          <div className="flex items-center justify-between gap-3">
-            <span className="font-semibold">{herald.name}</span>
+    <div className="space-y-3">
+      <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.3em] text-muted-foreground uppercase">
+        <ScrollText className="size-3.5 shrink-0 text-primary" />
+        {t("heralds.postAndComments")}
+      </p>
+      <div className="space-y-2">
+        {heralds.map((herald) => (
+          <div
+            key={herald.file}
+            className="flex items-center justify-between gap-3 rounded-2xl border border-border/60 bg-background/70 px-4 py-3"
+          >
+            <span className="text-sm font-semibold">{herald.name}</span>
             <Badge variant="outline" className="shrink-0 border-primary/30 text-primary">
               {herald.version}
             </Badge>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
 
 export function HeraldsPage() {
-  return (
-    <div className="mx-auto max-w-6xl space-y-14 pb-16 pt-4 md:space-y-20 md:pb-24 md:pt-10">
-      <section className="relative overflow-hidden  rounded-[2rem] border border-primary/25 bg-card px-6 py-12 shadow-[0_24px_80px_-48px_color-mix(in_oklch,var(--foreground)_30%,transparent)] md:px-12 md:py-16">
-        <div className="absolute inset-0 bg-grid-pattern text-primary opacity-[0.08]" />
-        <div className="relative max-w-3xl">
-          <Badge className="mb-5 gap-1.5">
-            <CheckCircle2 className="size-3.5" /> Production support
-          </Badge>
-          <h1 className="text-4xl font-black tracking-tight md:text-6xl">Heralds</h1>
-          <p className="mt-5 text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Heralds teach Vegan Mage how to identify a signed-in person and capture a selected post
-            with its discussion. These are the domains currently supported in production.
-          </p>
-        </div>
-      </section>
+  const { t } = useTranslation();
+  const heroRef = useRef<HTMLElement | null>(null);
 
-      <section aria-labelledby="supported-domains">
-        <div className="mb-6 flex items-end justify-between gap-4">
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary">
-              Supported domains
+  useEffect(() => {
+    document.title = t("nav.heralds");
+  }, [t]);
+
+  // The Mage surfaces once, over the hero, then drifts back into the pool.
+  const stations = useMemo<MageStation[]>(
+    () => [
+      {
+        ref: heroRef,
+        at: { x: 0.76, y: 0.42 },
+        scale: 1,
+        hold: { up: 0.2, down: 0.45 },
+      },
+    ],
+    [],
+  );
+
+  return (
+    <div className="grain relative">
+      <Suspense fallback={null}>
+        <MageFinField stations={stations} />
+      </Suspense>
+
+      <div className="relative z-10 space-y-16 pb-16 md:space-y-24 md:pb-24">
+        {/* ─── Hero (bare copy over the pool) ─────────────────── */}
+        <section
+          ref={heroRef}
+          className="relative flex min-h-[48svh] flex-col justify-center py-10 md:py-16"
+        >
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={rise}
+            className="flex flex-col items-start gap-6"
+          >
+            <p className="flex items-center gap-4 text-[11px] font-semibold tracking-[0.35em] text-muted-foreground uppercase">
+              <FinGlyph className="size-4 shrink-0 text-primary" />
+              {t("heralds.badge")}
             </p>
-            <h2 id="supported-domains" className="mt-2 text-3xl font-bold">
-              Ready for use
-            </h2>
-          </div>
-          <span className="rounded-full bg-primary-card px-3 py-1 text-sm font-semibold text-primary">
-            {heraldSites.length} sites
-          </span>
-        </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {heraldSites.map((site) => (
-            <Card key={site.domain} className="border-border/70 bg-card shadow-sm">
-              <CardContent className="space-y-5 p-5">
+            <h1 className="font-display max-w-4xl text-[clamp(2.75rem,9vw,6.5rem)] leading-[0.95] font-light tracking-[-0.025em] text-balance">
+              {t("heralds.title")}
+            </h1>
+            <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+              {t("heralds.body")}
+            </p>
+          </motion.div>
+        </section>
+
+        {/* ─── Supported websites ──────────────────────────────── */}
+        <section aria-labelledby="supported-domains" className="relative">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={rise}
+            className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+          >
+            <div className="flex flex-col gap-3">
+              <p className="flex items-center gap-4 text-[11px] font-semibold tracking-[0.35em] text-muted-foreground uppercase">
+                <span className="h-px w-12 bg-primary/60" />
+                {t("heralds.whereCaptureWorks")}
+              </p>
+              <h2
+                id="supported-domains"
+                className="font-display text-4xl leading-[0.95] font-light tracking-tight text-balance md:text-6xl"
+              >
+                {t("heralds.supportedWebsites")}
+              </h2>
+              <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                {t("heralds.unsupportedNote")}
+              </p>
+            </div>
+            <span className="inline-flex w-fit shrink-0 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+              {t("heralds.siteCount", { count: heraldSites.length })}
+            </span>
+          </motion.div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
+            {heraldSites.map((site, index) => (
+              <motion.article
+                key={site.domain}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                variants={rise}
+                custom={index}
+                className="group flex flex-col gap-6 rounded-[2rem] border border-border/60 bg-card/90 p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/50 md:p-8"
+              >
                 <div className="flex items-center gap-3">
-                  <span className="flex size-10 items-center justify-center rounded-full bg-primary-card text-primary">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                     <Globe2 className="size-5" />
                   </span>
-                  <h3 className="text-xl font-bold">{site.domain}</h3>
+                  <h3 className="text-lg font-bold tracking-tight break-all">{site.domain}</h3>
                 </div>
-                <HeraldList heralds={site.names} type="Name" />
-                <HeraldList heralds={site.threads} type="Thread" />
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
+                <HeraldList heralds={site.quests} />
+              </motion.article>
+            ))}
+          </div>
+        </section>
 
-      <section className="grid gap-6 md:grid-cols-[0.9fr_1.1fr]">
-        <Card className="border-primary/20 bg-primary-card/50">
-          <CardContent className="p-7 md:p-8">
-            <BookOpen className="size-7 text-primary" />
-            <h2 className="mt-5 text-2xl font-bold">What makes a site supported?</h2>
-            <p className="mt-3 leading-relaxed text-muted-foreground">
-              A production domain needs both herald types: a name herald to resolve the active
-              account and a thread herald to capture the selected post and replies. The list above
-              is generated from domains present in both production directories.
+        {/* ─── How it works / request support ──────────────────── */}
+        <section className="grid gap-6 md:grid-cols-2 lg:gap-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={rise}
+            custom={0}
+            className="rounded-[2rem] border border-border/60 bg-card/90 p-10 backdrop-blur-xl transition-transform duration-500 hover:-translate-y-1.5 md:p-12"
+          >
+            <BookOpen className="size-8 text-primary" />
+            <h2 className="font-display mt-6 text-3xl leading-tight font-light md:text-4xl">
+              {t("heralds.howTitle")}
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              {t("heralds.howBody")}
             </p>
-          </CardContent>
-        </Card>
-        <Card className="border-border/70 bg-card">
-          <CardContent className="p-7 md:p-8">
-            <FileCode2 className="size-7 text-primary" />
-            <h2 className="mt-5 text-2xl font-bold">Add a herald</h2>
-            <ol className="mt-4 space-y-3 text-muted-foreground">
-              <li>
-                <span className="mr-2 font-bold text-primary">1.</span>Add a production name config
-                at{" "}
-                <code className="rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">
-                  herald/harvester/production/name/&lt;domain&gt;-&lt;n&gt;.json
-                </code>
-                .
-              </li>
-              <li>
-                <span className="mr-2 font-bold text-primary">2.</span>Add its production thread
-                config at{" "}
-                <code className="rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">
-                  herald/harvester/production/thread/&lt;domain&gt;-&lt;n&gt;.json
-                </code>
-                .
-              </li>
-              <li>
-                <span className="mr-2 font-bold text-primary">3.</span>Use a positive number for{" "}
-                <code>&lt;n&gt;</code>, include a name and version in both configs, and validate the
-                capture behavior.
-              </li>
-              <li>
-                <span className="mr-2 font-bold text-primary">4.</span>Run the web build. It
-                regenerates this page's support data from the production configs.
-              </li>
-            </ol>
-          </CardContent>
-        </Card>
-      </section>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={rise}
+            custom={1}
+            className="rounded-[2rem] border border-accent/30 bg-accent-card p-10 transition-transform duration-500 hover:-translate-y-1.5 md:p-12"
+          >
+            <MessagesSquare className="size-8 text-primary" />
+            <h2 className="font-display mt-6 text-3xl leading-tight font-light md:text-4xl">
+              {t("heralds.requestTitle")}
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              {t("heralds.communityBody")}
+            </p>
+            <a
+              href={discordUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="group mt-5 inline-flex items-center gap-2 font-semibold text-primary underline underline-offset-4 transition-colors hover:text-accent"
+            >
+              <DiscordIcon className="size-4 shrink-0" />
+              {t("common.joinDiscord")}
+              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+            <p className="mt-6 border-t border-border/60 pt-6 text-sm leading-relaxed text-muted-foreground">
+              <Trans
+                i18nKey="heralds.requestBody"
+                values={{ email: "veganmage@proton.me" }}
+                components={{
+                  a: (
+                    <a
+                      className="font-semibold text-primary underline underline-offset-4 transition-colors hover:text-accent"
+                      href="mailto:veganmage@proton.me"
+                    />
+                  ),
+                }}
+              />
+            </p>
+          </motion.div>
+        </section>
+      </div>
     </div>
   );
 }

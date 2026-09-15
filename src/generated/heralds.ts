@@ -9,7 +9,7 @@ export type Herald = {
 export type HeraldSite = {
   domain: string;
   names: Herald[];
-  threads: Herald[];
+  quests: Herald[];
 };
 
 export const heraldSites: HeraldSite[] = [
@@ -18,11 +18,11 @@ export const heraldSites: HeraldSite[] = [
     "names": [
       {
         "file": "facebook.com-1.json",
-        "name": "Mirror Weave",
+        "name": "Truename Veil",
         "version": "v1"
       }
     ],
-    "threads": [
+    "quests": [
       {
         "file": "facebook.com-1.json",
         "name": "Mirror Weave",
@@ -35,11 +35,11 @@ export const heraldSites: HeraldSite[] = [
     "names": [
       {
         "file": "instagram.com-1.json",
-        "name": "Moon Tapestry",
+        "name": "Epithet Star",
         "version": "v1"
       }
     ],
-    "threads": [
+    "quests": [
       {
         "file": "instagram.com-1.json",
         "name": "Moon Tapestry",
@@ -52,11 +52,11 @@ export const heraldSites: HeraldSite[] = [
     "names": [
       {
         "file": "linkedin.com-1.json",
-        "name": "Guild Ledger",
+        "name": "Sigil Seeker",
         "version": "v1"
       }
     ],
-    "threads": [
+    "quests": [
       {
         "file": "linkedin.com-1.json",
         "name": "Guild Ledger",
@@ -69,11 +69,11 @@ export const heraldSites: HeraldSite[] = [
     "names": [
       {
         "file": "reddit.com-1.json",
-        "name": "Rune Codex",
+        "name": "Moniker Charm",
         "version": "v1"
       }
     ],
-    "threads": [
+    "quests": [
       {
         "file": "reddit.com-1.json",
         "name": "Rune Codex",
@@ -86,11 +86,11 @@ export const heraldSites: HeraldSite[] = [
     "names": [
       {
         "file": "x.com-1.json",
-        "name": "Quill Chronicle",
+        "name": "Whisper Glyph",
         "version": "v1"
       }
     ],
-    "threads": [
+    "quests": [
       {
         "file": "x.com-1.json",
         "name": "Quill Chronicle",

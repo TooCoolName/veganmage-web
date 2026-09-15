@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 
 interface PrivacyPageProps {
@@ -7,14 +8,16 @@ interface PrivacyPageProps {
 }
 
 export function PrivacyPage({ privacyPolicy, productName }: PrivacyPageProps) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const previousTitle = document.title;
-    document.title = `Privacy Policy | ${productName}`;
+    document.title = t("meta.privacyTitle", { productName });
 
     return () => {
       document.title = previousTitle;
     };
-  }, [productName]);
+  }, [t, productName]);
 
   return (
     <article className="mx-auto max-w-3xl rounded-3xl border border-border/60 bg-card/70 px-6 py-10 shadow-sm backdrop-blur-sm sm:px-10 md:py-14">

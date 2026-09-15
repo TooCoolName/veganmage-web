@@ -1,262 +1,519 @@
-import { ArrowUpRight, Brain, Chrome, HeartHandshake, Zap } from "lucide-react";
+import { Suspense, lazy, useEffect, useMemo, useRef } from "react";
+import { Link } from "react-router-dom";
+import { Trans, useTranslation } from "react-i18next";
 import { motion, type Variants } from "framer-motion";
-import { Badge } from "../components/ui/badge";
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Chrome,
+  Feather,
+  Focus,
+  MessageCircle,
+  MessagesSquare,
+  ShieldCheck,
+} from "lucide-react";
+import { FinGlyph } from "../components/FinGlyph";
+import { DiscordIcon } from "../components/DiscordIcon";
+import type { MageStation } from "../components/MageFinField";
 import { buttonVariants } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
 import { cn } from "../lib/utils";
+
+const MageFinField = lazy(() =>
+  import("../components/MageFinField").then((m) => ({
+    default: m.MageFinField,
+  })),
+);
 
 const chromeWebStoreUrl =
   "https://chromewebstore.google.com/detail/vegan-mage/pijaleolnpgboehkbacgnidlpombkekj";
 
-export function HomePage() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
+const discordUrl = "https://discord.gg/3VjKKfF5As";
 
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 100,
-      },
+const rise: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.12 * i,
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1],
     },
-  };
+  }),
+};
+
+const currentIcons = [Focus, MessageCircle, MessagesSquare];
+
+export function HomePage() {
+  const { t } = useTranslation();
+  const heroRef = useRef<HTMLElement | null>(null);
+  const threadRef = useRef<HTMLElement | null>(null);
+  const calmRef = useRef<HTMLElement | null>(null);
+  const swimRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    document.title = t("meta.homeTitle");
+  }, [t]);
+
+  const currents = t("home.thread.currents", {
+    returnObjects: true,
+  }) as unknown as { title: string; body: string }[];
+
+  // ── Background: green mage pool only ───────────────────────
+  // MagePoolBackground (water) + MageFinLayer (mage), nothing on top.
+  // All sections stay transparent so the pool shows through.
+
+  // the Mage gathers from dots at each stop down the page, scatters back
+  // to dots when its section leaves, and the cloud swarms over to the next
+  // stop. Later spawns are smaller — same posture, tapering size.
+  // Each `at`/`scale` resolves per breakpoint (`base` → `xl`): phones tuck the
+  // Mage into the corners, tablets let it surface, desktop gives it the most room.
+  const stations = useMemo<MageStation[]>(
+    () => [
+      {
+        // hero: holds the right, dropping lower and smaller on narrow screens
+        ref: heroRef,
+        at: {
+          base: { x: 0.84, y: 0.68 },
+          sm: { x: 0.8, y: 0.6 },
+          md: { x: 0.8, y: 0.6 },
+          lg: { x: 0.75, y: 0.45 },
+        },
+        scale: { base: 0.42, sm: 0.6, md: 0.78, lg: 1 },
+        hold: { up: 0.1, down: 0.3 },
+      },
+      {
+        // calmer current: drifts to the left edge, out of the centered copy
+        ref: calmRef,
+        at: {
+          base: { x: 0.2, y: 0.66 },
+          sm: { x: 0.2, y: 0.62 },
+          md: { x: 0.18, y: 0.5 },
+          lg: { x: 0.2, y: 0.52 },
+        },
+        scale: { base: 0.4, sm: 0.48, md: 0.55, lg: 0.6 },
+        hold: { up: 0.4, down: 0.35 },
+      },
+      {
+        // come swim: swings back to the right and rises toward the CTA
+        ref: swimRef,
+        at: {
+          base: { x: 0.84, y: 0.66 },
+          sm: { x: 0.82, y: 0.62 },
+          md: { x: 0.78, y: 0.54 },
+          lg: { x: 0.76, y: 0.45 },
+        },
+        scale: { base: 0.42, sm: 0.55, md: 0.65, lg: 0.75 },
+        hold: { up: 0.2, down: 0.75 },
+      },
+    ],
+    [],
+  );
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className="space-y-20 pb-16 md:space-y-28 md:pb-24"
-    >
-      {/* Hero Section */}
-      <div className="min-h-[72vh] rounded-[2rem] bg-card overflow-hidden relative border border-primary/25 dark:border-border/70 flex items-center justify-center shadow-[0_24px_80px_-48px_color-mix(in_oklch,var(--foreground)_30%,transparent)]">
-        <div className="absolute inset-0 bg-grid-pattern text-primary opacity-[0.11] dark:opacity-[0.055]"></div>
-        <div className="text-center max-w-4xl relative z-10 px-6 py-16 md:py-20">
-          <div className="flex flex-col items-center">
-            <motion.div
-              whileHover={{ scale: 1.05, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="mb-10 relative"
+    <div className="grain relative">
+      <Suspense fallback={null}>
+        <MageFinField stations={stations} />
+      </Suspense>
+
+      {/* ─── Hero (kept, green) ───────────────────────────────── */}
+      <section
+        ref={heroRef}
+        className="relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center overflow-hidden bg-transparent px-6 pt-24 pb-24 sm:pt-28 md:px-10 md:pt-10 md:pb-28 lg:px-16 xl:px-24"
+      >
+        {/* feathered frosted patch behind the copy: veins stay visible around it */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute top-1/2 left-0 h-[85%] w-[95%] -translate-y-1/2 [mask-image:radial-gradient(ellipse_75%_75%_at_40%_50%,black_30%,transparent_78%)] md:w-[62%]"
+        />
+        <div className="relative z-10 mx-auto flex w-full max-w-[90rem] flex-col items-start gap-8">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={rise}
+            custom={0}
+            className="flex items-center gap-4 text-[11px] font-semibold tracking-[0.35em] text-muted-foreground uppercase"
+          >
+            <FinGlyph className="size-4 shrink-0 text-primary" />
+            <span>{t("home.hero.kicker")}</span>
+          </motion.div>
+
+          <motion.h1
+            initial="hidden"
+            animate="visible"
+            variants={rise}
+            custom={1}
+            className="font-display max-w-[min(58rem,92vw)] text-[clamp(3rem,10.5vw,8.2rem)] leading-[0.92] font-light tracking-[-0.025em] text-balance"
+          >
+            <Trans
+              i18nKey="home.hero.title"
+              components={{ em: <em className="text-primary font-medium italic" /> }}
+            />
+          </motion.h1>
+
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            variants={rise}
+            custom={2}
+            className="max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl"
+          >
+            {t("home.hero.body")}
+          </motion.p>
+
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={rise}
+            custom={3}
+            className="mt-2 flex flex-wrap items-center gap-4"
+          >
+            <a
+              href={chromeWebStoreUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "group h-13 rounded-full bg-primary px-8 text-base font-semibold shadow-[0_0_70px_-15px_var(--primary)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_90px_-10px_var(--primary)]",
+              )}
             >
-              <div className="w-32 h-32 md:w-40 md:h-40 p-1 bg-gradient-to-tr from-primary via-primary to-accent rounded-full shadow-2xl shadow-primary/20">
-                <div className="w-full h-full bg-card rounded-full flex items-center justify-center overflow-hidden p-1">
-                  <img
-                    src="/icon330.png"
-                    alt="Vegan Mage Mascot"
-                    className="w-full h-full object-contain"
-                  />
+              <Chrome className="size-5" />
+              {t("common.addToChrome")}
+              <ArrowUpRight className="size-4 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
+            </a>
+            <a
+              href={discordUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-13 items-center gap-2 rounded-full border border-border px-7 text-sm font-semibold text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+            >
+              <DiscordIcon className="size-5 text-primary" />
+              {t("home.hero.joinRanks")}
+              <span className="text-primary">→</span>
+            </a>
+          </motion.div>
+
+          <motion.p
+            initial="hidden"
+            animate="visible"
+            variants={rise}
+            custom={4}
+            className="text-xs font-medium tracking-[0.14em] text-muted-foreground/70 uppercase"
+          >
+            {t("home.hero.meta")}
+          </motion.p>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6, duration: 1 }}
+          className="absolute bottom-8 left-6 z-10 hidden items-center gap-3 md:left-10 lg:flex xl:left-16"
+        >
+          <ArrowDown className="animate-bounce-slow size-4 text-muted-foreground" />
+          <span className="text-[10px] font-semibold tracking-[0.4em] text-muted-foreground/70 uppercase">
+            {t("home.hero.scroll")}
+          </span>
+        </motion.div>
+        <div className="absolute top-1/2 right-8 z-10 hidden -translate-y-1/2 [writing-mode:vertical-rl] xl:block">
+          <span className="text-[10px] font-semibold tracking-[0.5em] text-muted-foreground/50 uppercase">
+            {t("home.hero.sideNote")}
+          </span>
+        </div>
+      </section>
+
+      {/* ─── 01 · The conversation is the prompt ─────────────── */}
+      {/* Transparent — green pool shows through, bare text is dark. */}
+      <section ref={threadRef} className="relative z-10 overflow-hidden bg-transparent">
+        <div className="relative mx-auto w-full max-w-[90rem] px-6 py-32 md:px-10 md:py-40 lg:px-16 lg:py-56 xl:px-24">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={rise}
+            className="flex flex-col gap-8"
+          >
+            <p className="flex items-center gap-4 text-[11px] font-semibold tracking-[0.35em] text-muted-foreground uppercase">
+              <span className="h-px w-12 bg-primary/60" />
+              {t("home.thread.kicker")}
+            </p>
+            <h2 className="font-display max-w-5xl text-5xl leading-[0.95] font-light tracking-tight text-balance text-foreground md:text-7xl xl:text-8xl">
+              <Trans
+                i18nKey="home.thread.title"
+                components={{ em: <em className="text-primary italic" /> }}
+              />
+            </h2>
+            <p className="max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
+              {t("home.thread.body")}
+            </p>
+          </motion.div>
+
+          <div className="mt-16 grid max-w-6xl grid-cols-1 items-stretch gap-6 md:mt-20 md:gap-8 lg:grid-cols-5">
+            <motion.figure
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={rise}
+              custom={0}
+              className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card/90 p-8 backdrop-blur-xl md:p-10 lg:col-span-3"
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-32 right-0 size-96 rounded-full bg-accent/15 blur-3xl"
+              />
+              <figcaption className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.3em] text-muted-foreground uppercase">
+                <span className="size-2 animate-pulse rounded-full bg-primary" />
+                {t("home.thread.figureKicker")}
+              </figcaption>
+              <div className="mt-8 space-y-5">
+                <div className="rounded-2xl border border-border/60 bg-background/70 p-6">
+                  <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+                    {t("home.thread.postLabel")}
+                  </p>
+                  <p className="mt-2 text-lg leading-snug font-medium">
+                    {t("home.thread.postQuote")}
+                  </p>
+                </div>
+                <div className="ml-6 space-y-4 border-l-2 border-primary/30 pl-6 md:ml-10">
+                  <div className="rounded-2xl bg-muted/70 p-5 text-[15px] leading-relaxed text-muted-foreground">
+                    {t("home.thread.repliesNote")}
+                  </div>
+                  <div className="rounded-2xl border border-primary/30 bg-primary/10 p-5">
+                    <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+                      {t("home.thread.targetLabel")}
+                    </p>
+                    <p className="mt-2 text-[15px] leading-relaxed">
+                      {t("home.thread.target")}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-border/60 bg-background/70 p-5">
+                    <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+                      {t("home.thread.instructionLabel")}
+                    </p>
+                    <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
+                      {t("home.thread.instruction")}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.figure>
 
-            <motion.h1
-              variants={itemVariants}
-              className="text-5xl md:text-7xl font-black mb-6 tracking-[-0.045em] leading-[0.95] text-foreground"
-            >
-              AI Meets Veganism
-            </motion.h1>
+            <div className="flex flex-col gap-6 md:gap-8 lg:col-span-2">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                variants={rise}
+                custom={1}
+                className="group flex-1 rounded-[2rem] border border-border/60 bg-card/90 p-8 backdrop-blur-xl transition-transform duration-500 hover:-translate-y-1.5 md:p-10"
+              >
+                <Feather className="size-8 text-primary" />
+                <h3 className="font-display mt-6 text-2xl leading-tight font-light text-balance md:text-3xl">
+                  <Trans
+                    i18nKey="home.thread.noBlankTitle"
+                    components={{ em: <em className="italic" /> }}
+                  />
+                </h3>
+                <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                  {t("home.thread.noBlankBody")}
+                </p>
+              </motion.div>
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                variants={rise}
+                custom={2}
+                className="flex-1 rounded-[2rem] border border-accent/30 bg-accent-card p-8 transition-transform duration-500 hover:-translate-y-1.5 md:p-10"
+              >
+                <ShieldCheck className="size-8 text-primary" />
+                <h3 className="mt-6 text-2xl font-semibold tracking-tight md:text-3xl">
+                  {t("home.thread.authorTitle")}
+                </h3>
+                <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                  {t("home.thread.authorBody")}
+                </p>
+              </motion.div>
+            </div>
+          </div>
 
+          <ol className="mt-6 grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 md:mt-8 md:gap-8 lg:grid-cols-3">
+            {currents.map((current, index) => {
+              const Icon = currentIcons[index];
+              return (
+                <motion.li
+                  key={current.title}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-60px" }}
+                  variants={rise}
+                  custom={index}
+                  className="group rounded-[2rem] border border-border/60 bg-card/90 p-8 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/50 md:p-10"
+                >
+                  <Icon className="size-9 text-primary transition-colors duration-300 group-hover:text-accent" />
+                  <h3 className="mt-6 text-3xl font-semibold tracking-tight">{current.title}</h3>
+                  <p className="mt-3 text-lg leading-relaxed text-muted-foreground">{current.body}</p>
+                </motion.li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      {/* ─── 02 · Calmer current ─────────────────────────────── */}
+      {/* Transparent — green pool shows through, bare text is dark. */}
+      <section ref={calmRef} className="relative z-10 overflow-hidden bg-transparent">
+        <div className="relative overflow-hidden py-32 md:py-44 lg:py-64">
+          {/* feathered frosted patch behind the heading */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute top-[6%] left-1/2 h-[52%] w-[94%] max-w-5xl -translate-x-1/2 [mask-image:radial-gradient(ellipse_75%_75%_at_50%_45%,black_30%,transparent_78%)"
+          />
+          <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 text-center">
             <motion.p
-              variants={itemVariants}
-              className="text-lg md:text-2xl text-muted-foreground max-w-2xl text-balance leading-relaxed"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={rise}
+              className="mb-8 flex items-center gap-4 text-[11px] font-semibold tracking-[0.4em] text-muted-foreground uppercase"
             >
-              A powerful fusion of Artificial Intelligence and vegan activism.
-              <span className="font-semibold text-primary block mt-2">
-                Empowering advocates to help every animal.
-              </span>
+              <span className="h-px w-12 bg-primary/60" />
+              {t("home.calm.kicker")}
+              <span className="h-px w-12 bg-primary/60" />
+            </motion.p>
+            <motion.h2
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={rise}
+              className="font-display max-w-4xl text-6xl leading-[0.95] font-light tracking-tight text-balance text-foreground md:text-8xl"
+            >
+              <Trans
+                i18nKey="home.calm.title"
+                components={{ em: <em className="text-primary italic" /> }}
+              />
+            </motion.h2>
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={rise}
+              custom={1}
+              className="mt-8 max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-2xl"
+            >
+              {t("home.calm.body")}
             </motion.p>
 
-            <motion.div
-              variants={itemVariants}
-              className="mt-8 flex flex-col items-center gap-3"
+            <motion.figure
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={rise}
+              custom={2}
+              className="relative mt-16 w-full max-w-3xl overflow-hidden rounded-[2.5rem] border border-border/60 bg-card/85 p-10 text-left backdrop-blur-2xl md:p-14"
             >
-              <a
-                href={chromeWebStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-                className={cn(
-                  buttonVariants({ size: "lg" }),
-                  "h-12 rounded-full px-7 text-base shadow-lg shadow-primary/20 hover:-translate-y-0.5",
-                )}
-              >
-                <Chrome className="size-5" />
-                Add to Chrome
-                <ArrowUpRight className="size-4 opacity-70" />
-              </a>
-              <span className="text-xs font-medium text-muted-foreground">
-                Get the Vegan Mage browser extension
-              </span>
-            </motion.div>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-24 left-1/2 h-48 w-[80%] -translate-x-1/2 rounded-full bg-accent/25 blur-3xl"
+              />
+              <figcaption className="relative flex items-center justify-between gap-4">
+                <span className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.3em] text-muted-foreground uppercase">
+                  <Feather className="size-4 text-primary" />
+                  {t("home.calm.caption")}
+                </span>
+                <span className="rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
+                  {t("home.calm.badge")}
+                </span>
+              </figcaption>
+              <blockquote className="font-display relative mt-6 text-2xl leading-snug font-light text-balance text-foreground md:text-4xl">
+                {t("home.calm.quote")}
+              </blockquote>
+              <div className="relative mt-8 flex flex-wrap items-center gap-3">
+                {(t("home.calm.tones", { returnObjects: true }) as unknown as string[]).map((tone) => (
+                  <span
+                    key={tone}
+                    className="rounded-full border border-border bg-muted/70 px-5 py-2 text-sm font-semibold text-muted-foreground"
+                  >
+                    {tone}
+                  </span>
+                ))}
+                <span className="ml-auto hidden items-center gap-2 text-sm font-semibold text-primary sm:inline-flex">
+                  {t("home.calm.refine")} <ArrowUpRight className="size-4" />
+                </span>
+              </div>
+            </motion.figure>
+
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={rise}
+              custom={3}
+              className="mt-10 text-xs font-medium tracking-[0.25em] text-muted-foreground/80 uppercase"
+            >
+              {t("home.calm.meta")}
+            </motion.p>
           </div>
         </div>
+      </section>
 
-        {/* Decorative Elements */}
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/16 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div>
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-accent/20 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow delay-1000"></div>
-      </div>
-
-      {/* Mission Section */}
-      {/* Core Concepts Section */}
-      <div className="flex flex-col md:flex-row gap-12 items-center max-w-6xl mx-auto px-4">
-        <motion.div variants={itemVariants} className="flex-1 space-y-6">
-          <Badge
-            variant="outline"
-            className="mb-2 border-primary/40 bg-primary-card text-primary"
+      {/* ─── 03 · Come swim ───────────────────────────────── */}
+      {/* Transparent — green pool shows through, bare text is dark. */}
+      <section ref={swimRef} className="relative z-10 overflow-hidden bg-transparent">
+        <div className="relative mx-auto flex w-full max-w-[90rem] flex-col gap-14 px-6 py-32 md:px-10 md:py-40 lg:px-16 lg:py-56 xl:px-24">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={rise}
+            className="flex flex-col gap-10"
           >
-            The Vision
-          </Badge>
-          <h2 className="text-4xl font-bold">Empowering Advocates</h2>
-          <p className="text-lg opacity-80 leading-relaxed">
-            Vegan Mage is the merge of{" "}
-            <span className="text-primary font-semibold">
-              Artificial Intelligence
-            </span>{" "}
-            with vegan activism. We exist to empower vegan advocates via
-            different tools, evolving constantly to enhance human potential and
-            help every animal.
-          </p>
-
-          <ul className="space-y-4 pt-4">
-            <li className="flex items-start gap-3">
-              <div className="mt-1 bg-primary/10 p-2 rounded-full text-primary">
-                <Zap size={20} />
-              </div>
-              <div>
-                <h3 className="font-bold">The Browser Extension</h3>
-                <p className="text-sm opacity-70">
-                  Your digital companion that brings advocacy tools directly to
-                  your browsing experience.
-                </p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <div className="mt-1 bg-accent-card p-2 rounded-full text-foreground">
-                <HeartHandshake size={20} />
-              </div>
-              <div>
-                <h3 className="font-bold">Advocacy Support</h3>
-                <p className="text-sm opacity-70">
-                  Get practical help shaping compassionate, evidence-informed
-                  responses when conversations matter.
-                </p>
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <div className="mt-1 bg-muted-card p-2 rounded-full text-muted-foreground">
-                <Brain size={20} />
-              </div>
-              <div>
-                <h3 className="font-bold">Constant Evolution</h3>
-                <p className="text-sm opacity-70">
-                  Always improving to provide more effective, accessible support
-                  for the animals.
-                </p>
-              </div>
-            </li>
-          </ul>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="flex-1 relative">
-          <Card className="shadow-2xl shadow-primary/5 border-border/70 overflow-hidden relative bg-card">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-card via-transparent to-accent-card z-0"></div>
-            <CardContent className="p-10 relative z-10 flex flex-col items-center text-center space-y-6">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-primary to-accent p-1 shadow-xl">
-                <div className="w-full h-full bg-card rounded-full flex items-center justify-center">
-                  <HeartHandshake size={48} className="text-primary" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-2">Built for Advocates</h3>
-                <p className="opacity-70">
-                  Vegan Mage helps advocates respond with clarity, compassion,
-                  and stronger arguments wherever outreach happens.
-                </p>
-              </div>
-              <div className="flex gap-2 justify-center pt-4">
-                <Badge className="text-sm px-3 py-1">Compassion</Badge>
-                <Badge variant="secondary" className="text-sm px-3 py-1">
-                  Evidence
-                </Badge>
-                <Badge variant="accent" className="text-sm px-3 py-1">
-                  Action
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      </div>
-
-      {/* CTA Section */}
-      <motion.div
-        variants={itemVariants}
-        className="bg-primary text-primary-foreground rounded-[2rem] p-10 md:p-20 relative overflow-hidden shadow-2xl shadow-primary/15"
-      >
-        <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center gap-10 text-center md:flex-row md:justify-between md:text-left">
-          <div className="max-w-2xl space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-3 py-1 text-sm font-semibold">
-              <Chrome className="size-4" />
-              Available on the Chrome Web Store
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Put Vegan Mage in your browser
-            </h2>
-            <p className="text-lg md:text-xl opacity-90 leading-relaxed">
-              Bring compassionate, evidence-informed advocacy support to the
-              conversations already happening online.
+            <p className="flex items-center gap-4 text-[11px] font-semibold tracking-[0.35em] text-muted-foreground uppercase">
+              <Chrome className="size-4 text-primary" />
+              {t("home.swim.kicker")}
             </p>
-          </div>
+            <h2 className="font-display max-w-6xl text-[clamp(4rem,12vw,11rem)] leading-[0.9] font-light tracking-[-0.025em] text-balance text-foreground">
+              <Trans
+                i18nKey="home.swim.title"
+                components={{ em: <em className="text-primary font-medium italic" /> }}
+              />
+            </h2>
+            <p className="max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
+              {t("home.swim.body")}
+            </p>
+          </motion.div>
 
-          <a
-            href={chromeWebStoreUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex min-w-fit items-center gap-3 rounded-xl bg-card px-6 py-4 font-bold text-card-foreground shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-foreground/40"
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={rise}
+            custom={1}
+            className="flex flex-col gap-6 sm:flex-row sm:items-center"
           >
-            <span className="flex size-10 items-center justify-center rounded-full bg-primary-card text-primary">
-              <Chrome className="size-5" />
-            </span>
-            <span className="text-left leading-tight">
-              <span className="block text-xs font-medium text-muted-foreground">
-                Get the extension
-              </span>
-              Add to Chrome
-            </span>
-            <ArrowUpRight className="size-5 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
+            <a
+              href={chromeWebStoreUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "group h-16 rounded-full bg-primary px-10 text-lg font-semibold transition-all duration-300 hover:-translate-y-0.5",
+              )}
+            >
+              <Chrome className="size-6" />
+              {t("common.addToChromeFree")}
+              <ArrowUpRight className="size-5 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
+            </a>
+            <Link
+              to="/heralds"
+              className="inline-flex h-16 items-center justify-center gap-2 rounded-full border border-border px-9 text-base font-semibold text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+            >
+              {t("home.swim.secondary")}
+              <span className="text-primary">→</span>
+            </Link>
+          </motion.div>
         </div>
-
-        {/* Background Pattern */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern
-                id="grid"
-                width="40"
-                height="40"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M 40 0 L 0 0 0 40"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-      </motion.div>
-    </motion.div>
+      </section>
+    </div>
   );
 }
