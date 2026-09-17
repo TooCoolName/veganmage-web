@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import { Chrome, ArrowUpRight, Mail } from 'lucide-react';
 import { motion, type Variants } from 'framer-motion';
-import { FinGlyph } from './FinGlyph';
+import { FigureGlyph } from './FigureGlyph';
 import { DiscordIcon } from './DiscordIcon';
 import { cn } from '../lib/utils';
 import type { ComponentType } from 'react';
@@ -88,7 +88,7 @@ export function Footer({ transparent = false }: { transparent?: boolean }) {
                 >
                     <div className="max-w-2xl space-y-4">
                         <p className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.35em] text-muted-foreground uppercase">
-                            <FinGlyph className="size-4 shrink-0 text-primary" />
+                            <FigureGlyph className="size-4 shrink-0 text-primary" />
                             {t('footer.closingKicker')}
                         </p>
                         <h2 className="font-display text-4xl leading-[1.04] font-light tracking-tight md:text-6xl">
@@ -185,7 +185,7 @@ export function Footer({ transparent = false }: { transparent?: boolean }) {
                 <div className="mt-10 flex flex-col items-center gap-3 border-t border-border/70 pt-6 text-center text-xs font-medium text-muted-foreground sm:flex-row sm:justify-between sm:text-left md:mt-14">
                     <p>{t('common.copyright', { year: new Date().getFullYear() })}</p>
                     <p className="flex items-center gap-2">
-                        <FinGlyph className="animate-pulse-slow size-3.5 shrink-0 text-primary" />
+                        <FigureGlyph className="animate-pulse-slow size-3.5 shrink-0 text-primary" />
                         {t('common.madeWithCare')}
                     </p>
                 </div>

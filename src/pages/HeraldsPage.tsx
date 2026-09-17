@@ -4,15 +4,15 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, BookOpen, Globe2, MessagesSquare, ScrollText } from "lucide-react";
 import { Badge } from "../components/ui/badge";
 import { DiscordIcon } from "../components/DiscordIcon";
-import { FinGlyph } from "../components/FinGlyph";
-import type { MageStation } from "../components/MageFinField";
+import { FigureGlyph } from "../components/FigureGlyph";
+import type { MageStation } from "../components/MageFigureField";
 import { heraldSites, type Herald } from "../generated/heralds";
 
 const discordUrl = "https://discord.gg/3VjKKfF5As";
 
-const MageFinField = lazy(() =>
-  import("../components/MageFinField").then((m) => ({
-    default: m.MageFinField,
+const MageFigureField = lazy(() =>
+  import("../components/MageFigureField").then((m) => ({
+    default: m.MageFigureField,
   })),
 );
 
@@ -68,8 +68,12 @@ export function HeraldsPage() {
     () => [
       {
         ref: heroRef,
-        at: { x: 0.76, y: 0.42 },
-        scale: 1,
+        at: {
+          base: { x: 0.8, y: 0.2 },
+          lg: { x: 0.76, y: 0.4 },
+          xl: { x: 0.75, y: 0.45 },
+        },
+        scale: { base: 0.65, lg: 0.7, xl: 1 },
         hold: { up: 0.2, down: 0.45 },
       },
     ],
@@ -79,7 +83,7 @@ export function HeraldsPage() {
   return (
     <div className="grain relative">
       <Suspense fallback={null}>
-        <MageFinField stations={stations} />
+        <MageFigureField stations={stations} />
       </Suspense>
 
       <div className="relative z-10 space-y-16 pb-16 md:space-y-24 md:pb-24">
@@ -95,7 +99,7 @@ export function HeraldsPage() {
             className="flex flex-col items-start gap-6"
           >
             <p className="flex items-center gap-4 text-[11px] font-semibold tracking-[0.35em] text-muted-foreground uppercase">
-              <FinGlyph className="size-4 shrink-0 text-primary" />
+              <FigureGlyph className="size-4 shrink-0 text-primary" />
               {t("heralds.badge")}
             </p>
             <h1 className="font-display max-w-4xl text-[clamp(2.75rem,9vw,6.5rem)] leading-[0.95] font-light tracking-[-0.025em] text-balance">

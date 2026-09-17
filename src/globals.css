@@ -205,13 +205,6 @@ select:focus-within {
     }
 }
 
-/* Scroll-driven recolor of the hero pool: --pool-filter is fed by the
-   page scroll (green flow turns gold), so the hue truly changes instead
-   of sitting a gold layer on top of green. */
-.mage-pool {
-    filter: var(--pool-filter, none);
-}
-
 /* The weave trail replaces the pointer, so hide the native cursor while it runs. */
 body.mage-cursor-hidden,
 body.mage-cursor-hidden * {

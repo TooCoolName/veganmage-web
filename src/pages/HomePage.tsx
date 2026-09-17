@@ -12,15 +12,17 @@ import {
   MessagesSquare,
   ShieldCheck,
 } from "lucide-react";
-import { FinGlyph } from "../components/FinGlyph";
+import mage1Url from "../assets/mage1.svg";
+import mage2Url from "../assets/mage2.svg";
+import { FigureGlyph } from "../components/FigureGlyph";
 import { DiscordIcon } from "../components/DiscordIcon";
-import type { MageStation } from "../components/MageFinField";
+import type { MageStation } from "../components/MageFigureField";
 import { buttonVariants } from "../components/ui/button";
 import { cn } from "../lib/utils";
 
-const MageFinField = lazy(() =>
-  import("../components/MageFinField").then((m) => ({
-    default: m.MageFinField,
+const MageFigureField = lazy(() =>
+  import("../components/MageFigureField").then((m) => ({
+    default: m.MageFigureField,
   })),
 );
 
@@ -60,7 +62,7 @@ export function HomePage() {
   }) as unknown as { title: string; body: string }[];
 
   // ── Background: green mage pool only ───────────────────────
-  // MagePoolBackground (water) + MageFinLayer (mage), nothing on top.
+  // MagePoolBackground (water) + MageFigureLayer (mage), nothing on top.
   // All sections stay transparent so the pool shows through.
 
   // the Mage gathers from dots at each stop down the page, scatters back
@@ -74,36 +76,35 @@ export function HomePage() {
         // hero: holds the right, dropping lower and smaller on narrow screens
         ref: heroRef,
         at: {
-          base: { x: 0.84, y: 0.68 },
-          sm: { x: 0.8, y: 0.6 },
-          md: { x: 0.8, y: 0.6 },
-          lg: { x: 0.75, y: 0.45 },
+          base: { x: 0.8, y: 0.3 },
+          lg: { x: 0.76, y: 0.45 },
+          xl: { x: 0.75, y: 0.45 },
         },
-        scale: { base: 0.42, sm: 0.6, md: 0.78, lg: 1 },
+        scale: { base: 0.65, lg: 0.7, xl: 1 },
         hold: { up: 0.1, down: 0.3 },
       },
       {
         // calmer current: drifts to the left edge, out of the centered copy
         ref: calmRef,
+        figure: mage1Url,
         at: {
-          base: { x: 0.2, y: 0.66 },
-          sm: { x: 0.2, y: 0.62 },
-          md: { x: 0.18, y: 0.5 },
-          lg: { x: 0.2, y: 0.52 },
+          base: { x: 0.1, y: 0.0 },
+          lg: { x: 0.15, y: 0.0 },
+          xl: { x: 0.25, y: 0.5 },
         },
-        scale: { base: 0.4, sm: 0.48, md: 0.55, lg: 0.6 },
+        scale: { base: 0.3, lg: 0.4, xl: 0.85 },
         hold: { up: 0.4, down: 0.35 },
       },
       {
         // come swim: swings back to the right and rises toward the CTA
         ref: swimRef,
+        figure: mage2Url,
         at: {
-          base: { x: 0.84, y: 0.66 },
-          sm: { x: 0.82, y: 0.62 },
-          md: { x: 0.78, y: 0.54 },
-          lg: { x: 0.76, y: 0.45 },
+          base: { x: 0.85, y: 0.0 },
+          lg: { x: 0.8, y: 0.15 },
+          xl: { x: 0.75, y: 0.45 },
         },
-        scale: { base: 0.42, sm: 0.55, md: 0.65, lg: 0.75 },
+        scale: { base: 0.6, lg: 0.6, xl: 0.85 },
         hold: { up: 0.2, down: 0.75 },
       },
     ],
@@ -113,7 +114,7 @@ export function HomePage() {
   return (
     <div className="grain relative">
       <Suspense fallback={null}>
-        <MageFinField stations={stations} />
+        <MageFigureField stations={stations} />
       </Suspense>
 
       {/* ─── Hero (kept, green) ───────────────────────────────── */}
@@ -134,7 +135,7 @@ export function HomePage() {
             custom={0}
             className="flex items-center gap-4 text-[11px] font-semibold tracking-[0.35em] text-muted-foreground uppercase"
           >
-            <FinGlyph className="size-4 shrink-0 text-primary" />
+            <FigureGlyph className="size-4 shrink-0 text-primary" />
             <span>{t("home.hero.kicker")}</span>
           </motion.div>
 
@@ -282,9 +283,7 @@ export function HomePage() {
                     <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
                       {t("home.thread.targetLabel")}
                     </p>
-                    <p className="mt-2 text-[15px] leading-relaxed">
-                      {t("home.thread.target")}
-                    </p>
+                    <p className="mt-2 text-[15px] leading-relaxed">{t("home.thread.target")}</p>
                   </div>
                   <div className="rounded-2xl border border-border/60 bg-background/70 p-5">
                     <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
@@ -352,7 +351,9 @@ export function HomePage() {
                 >
                   <Icon className="size-9 text-primary transition-colors duration-300 group-hover:text-accent" />
                   <h3 className="mt-6 text-3xl font-semibold tracking-tight">{current.title}</h3>
-                  <p className="mt-3 text-lg leading-relaxed text-muted-foreground">{current.body}</p>
+                  <p className="mt-3 text-lg leading-relaxed text-muted-foreground">
+                    {current.body}
+                  </p>
                 </motion.li>
               );
             })}
@@ -369,7 +370,7 @@ export function HomePage() {
             aria-hidden
             className="pointer-events-none absolute top-[6%] left-1/2 h-[52%] w-[94%] max-w-5xl -translate-x-1/2 [mask-image:radial-gradient(ellipse_75%_75%_at_50%_45%,black_30%,transparent_78%)"
           />
-          <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 text-center">
+          <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center px-6 text-center lg:mr-0 lg:ml-auto">
             <motion.p
               initial="hidden"
               whileInView="visible"
@@ -429,14 +430,16 @@ export function HomePage() {
                 {t("home.calm.quote")}
               </blockquote>
               <div className="relative mt-8 flex flex-wrap items-center gap-3">
-                {(t("home.calm.tones", { returnObjects: true }) as unknown as string[]).map((tone) => (
-                  <span
-                    key={tone}
-                    className="rounded-full border border-border bg-muted/70 px-5 py-2 text-sm font-semibold text-muted-foreground"
-                  >
-                    {tone}
-                  </span>
-                ))}
+                {(t("home.calm.tones", { returnObjects: true }) as unknown as string[]).map(
+                  (tone) => (
+                    <span
+                      key={tone}
+                      className="rounded-full border border-border bg-muted/70 px-5 py-2 text-sm font-semibold text-muted-foreground"
+                    >
+                      {tone}
+                    </span>
+                  ),
+                )}
                 <span className="ml-auto hidden items-center gap-2 text-sm font-semibold text-primary sm:inline-flex">
                   {t("home.calm.refine")} <ArrowUpRight className="size-4" />
                 </span>

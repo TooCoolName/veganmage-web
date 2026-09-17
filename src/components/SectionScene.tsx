@@ -1,5 +1,7 @@
 import { useEffect, useRef, type CSSProperties } from "react";
 import * as THREE from "three";
+import { SECTION } from "./colors/section";
+import { currentTheme } from "./colors/theme";
 
 export type SectionVariant = "shimmer" | "descent" | "abyss" | "sunrise";
 
@@ -326,17 +328,10 @@ const FEATHER_MASK: Record<string, string> = {
   both: "linear-gradient(180deg, transparent 0%, black 12%, black 86%, transparent 100%)",
 };
 
-/** Hardcoded Mage palette per theme — mirrors MageFinField.
+/** Hardcoded Mage palette per theme — mirrors MageFigureField.
  *  (THREE.Color cannot parse the oklch() tokens from getComputedStyle.) */
-const PALETTE = {
-  light: { primary: "#2eb45c", accent: "#c98a00" },
-  dark: { primary: "#2fd06f", accent: "#ffd000" },
-} as const;
-
 function themeColors(): { primary: string; accent: string } {
-  return document.documentElement.getAttribute("data-theme") === "custom-dark"
-    ? { ...PALETTE.dark }
-    : { ...PALETTE.light };
+  return SECTION[currentTheme()];
 }
 
 export function SectionScene({

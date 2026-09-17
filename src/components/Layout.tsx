@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Moon, Sun, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { buttonVariants } from './ui/button';
 import { LanguagePicker } from './LanguagePicker';
@@ -10,15 +10,14 @@ import { cn } from '../lib/utils';
 
 export function Layout() {
     const { t } = useTranslation();
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'custom-light');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
     const controlsRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    }, [theme]);
+        document.documentElement.setAttribute('data-theme', 'custom-dark');
+        localStorage.setItem('theme', 'custom-dark');
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -43,10 +42,6 @@ export function Layout() {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, [isMenuOpen]);
-
-    const toggleTheme = () => {
-        setTheme(prev => prev === 'custom-light' ? 'custom-dark' : 'custom-light');
-    };
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -91,9 +86,6 @@ export function Layout() {
                             className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-bl from-background/80 via-background/35 to-transparent blur-2xl"
                         />
                         <LanguagePicker />
-                        <button onClick={toggleTheme} className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'relative rounded-full text-foreground transition-transform hover:scale-110 hover:text-primary active:scale-95')} aria-label={t('common.toggleTheme')}>
-                            {theme === 'custom-dark' ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
-                        </button>
                         <button tabIndex={0} className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'relative rounded-full transition-transform hover:scale-110 hover:text-primary active:scale-95')} onClick={toggleMenu} aria-label={t('common.toggleMenu')}>
                             <Menu size={24} />
                         </button>

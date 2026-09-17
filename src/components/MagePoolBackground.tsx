@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import magefinUrl from "../assets/magefin.svg";
+import mageMainUrl from "../assets/mage-main.svg";
 import { cn } from "../lib/utils";
-import { PALETTE, SCROLL_GOLD, SCROLL_MID, clamp01, currentTheme } from "./pool/palette";
+import { WATER, WATER_SCROLL_GOLD, WATER_SCROLL_MID } from "./colors/water";
+import { currentTheme, readPoolScroll, scrollTriad } from "./colors/theme";
 import {
   CAUSTIC_FRAGMENT,
   CAUSTIC_VERTEX,
   DUST_FRAGMENT,
   DUST_VERTEX,
+  RELEASE_LIFE,
+  RELEASE_SLOTS,
   RIPPLE_LIFE,
   RIPPLE_SLOTS,
 } from "./pool/shaders";
@@ -18,11 +21,18 @@ const DUST_TOTAL = DUST_COUNT;
 /** Event the Mage layer dispatches when it blinks in/out, so the pool rings. */
 export const MAGE_RIPPLE_EVENT = "mage-ripple";
 
+/** Event the Mage layer dispatches to burn a cosmic void open in the water. */
+export const MAGE_RELEASE_EVENT = "mage-release";
+
 export type MageRippleDetail = { x: number; y: number; s: number };
+/** r is the starting radius of the shockwave, in half-viewport units */
+export type MageReleaseDetail = { x: number; y: number; s: number; r?: number };
 
 /**
  * Water only: caustics + dust + ripples + palette.
- * Own fixed canvas (z-0). Edit pool colors here — the Mage lives elsewhere.
+ * Own fixed canvas (z-0). Colors live in `./colors/water` (`WATER` plus the
+ * `WATER_SCROLL_MID`/`WATER_SCROLL_GOLD` scroll stops) — the Mage lives
+ * elsewhere.
  */
 export function MagePoolBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -64,9 +74,16 @@ export function MagePoolBackground() {
           () => new THREE.Vector4(0, 0, -100, 0),
         ),
       },
+      uReleases: {
+        value: Array.from(
+          { length: RELEASE_SLOTS },
+          () => new THREE.Vector4(0, 0, -100, 0),
+        ),
+      },
+      uReleaseStart: { value: new Float32Array(RELEASE_SLOTS) },
     };
 
-    const pal = PALETTE[currentTheme()];
+    const pal = WATER[currentTheme()];
     const causticsUniforms = {
       ...shared,
       uMouse: { value: new THREE.Vector2() },
@@ -78,6 +95,8 @@ export function MagePoolBackground() {
       uDensity: { value: pal.causticDensity },
       uSharp: { value: pal.causticSharp },
       uWash: { value: pal.wash },
+      uVoidColor: { value: new THREE.Color(pal.voidColor) },
+      uVoidStrength: { value: pal.voidStrength },
     };
     const causticsMaterial = new THREE.ShaderMaterial({
       vertexShader: CAUSTIC_VERTEX,
@@ -99,7 +118,7 @@ export function MagePoolBackground() {
       uniforms: {
         uTime: shared.uTime,
         uFade: { value: 1 },
-        uColorA: { value: new THREE.Color(pal.a) },
+        uColorA: { value: new THREE.Color(pal.dust) },
         uSize: { value: 4 },
       },
       transparent: true,
@@ -130,14 +149,14 @@ export function MagePoolBackground() {
       bgTop: THREE.Color;
       bgBottom: THREE.Color;
       glow: THREE.Color;
-      a: THREE.Color;
+      dust: THREE.Color;
       strength: number;
       wash: number;
     } = {
       bgTop: new THREE.Color(pal.bgTop),
       bgBottom: new THREE.Color(pal.bgBottom),
       glow: new THREE.Color(pal.glow),
-      a: new THREE.Color(pal.a),
+      dust: new THREE.Color(pal.dust),
       strength: pal.strength,
       wash: pal.wash,
     };
@@ -149,83 +168,78 @@ export function MagePoolBackground() {
       bgTop: THREE.Color;
       bgBottom: THREE.Color;
       glow: THREE.Color;
-      a: THREE.Color;
+      dust: THREE.Color;
       strength: number;
       wash: number;
     } = {
-      bgTop: new THREE.Color(PALETTE[themeName].bgTop),
-      bgBottom: new THREE.Color(PALETTE[themeName].bgBottom),
-      glow: new THREE.Color(PALETTE[themeName].glow),
-      a: new THREE.Color(PALETTE[themeName].a),
-      strength: PALETTE[themeName].strength,
-      wash: PALETTE[themeName].wash,
+      bgTop: new THREE.Color(WATER[themeName].bgTop),
+      bgBottom: new THREE.Color(WATER[themeName].bgBottom),
+      glow: new THREE.Color(WATER[themeName].glow),
+      dust: new THREE.Color(WATER[themeName].dust),
+      strength: WATER[themeName].strength,
+      wash: WATER[themeName].wash,
     };
     const gold: {
       bgTop: THREE.Color;
       bgBottom: THREE.Color;
       glow: THREE.Color;
-      a: THREE.Color;
+      dust: THREE.Color;
       strength: number;
       wash: number;
     } = {
-      bgTop: new THREE.Color(SCROLL_GOLD[themeName].bgTop),
-      bgBottom: new THREE.Color(SCROLL_GOLD[themeName].bgBottom),
-      glow: new THREE.Color(SCROLL_GOLD[themeName].glow),
-      a: new THREE.Color(SCROLL_GOLD[themeName].a),
-      strength: SCROLL_GOLD[themeName].strength,
-      wash: SCROLL_GOLD[themeName].wash,
+      bgTop: new THREE.Color(WATER_SCROLL_GOLD[themeName].bgTop),
+      bgBottom: new THREE.Color(WATER_SCROLL_GOLD[themeName].bgBottom),
+      glow: new THREE.Color(WATER_SCROLL_GOLD[themeName].glow),
+      dust: new THREE.Color(WATER_SCROLL_GOLD[themeName].dust),
+      strength: WATER_SCROLL_GOLD[themeName].strength,
+      wash: WATER_SCROLL_GOLD[themeName].wash,
     };
     const mid: {
       bgTop: THREE.Color;
       bgBottom: THREE.Color;
       glow: THREE.Color;
-      a: THREE.Color;
+      dust: THREE.Color;
       strength: number;
       wash: number;
     } = {
-      bgTop: new THREE.Color(SCROLL_MID[themeName].bgTop),
-      bgBottom: new THREE.Color(SCROLL_MID[themeName].bgBottom),
-      glow: new THREE.Color(SCROLL_MID[themeName].glow),
-      a: new THREE.Color(SCROLL_MID[themeName].a),
-      strength: SCROLL_MID[themeName].strength,
-      wash: SCROLL_MID[themeName].wash,
+      bgTop: new THREE.Color(WATER_SCROLL_MID[themeName].bgTop),
+      bgBottom: new THREE.Color(WATER_SCROLL_MID[themeName].bgBottom),
+      glow: new THREE.Color(WATER_SCROLL_MID[themeName].glow),
+      dust: new THREE.Color(WATER_SCROLL_MID[themeName].dust),
+      strength: WATER_SCROLL_MID[themeName].strength,
+      wash: WATER_SCROLL_MID[themeName].wash,
     };
+    // release palette is stable (not scroll-morphed), so it just eases on theme
+    const voidTarget = new THREE.Color(pal.voidColor);
+    let voidStrengthTarget = pal.voidStrength;
     let scrollTarget = 0;
     let scrollMix = 0;
-    const readScrollTarget = () => {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - window.innerHeight;
-      if (max <= 0) return 0;
-      const p = clamp01(window.scrollY / max);
-      // hold green for the first/last 10% of the scroll, then ease the middle:
-      // 0 at top, 1 mid-page, back to 0 at bottom.
-      const q = clamp01((p - 0.1) / 0.8);
-      return Math.sin(q * Math.PI);
-    };
     const refreshThemeBases = () => {
       themeName = currentTheme();
-      base.bgTop.set(PALETTE[themeName].bgTop);
-      base.bgBottom.set(PALETTE[themeName].bgBottom);
-      base.glow.set(PALETTE[themeName].glow);
-      base.a.set(PALETTE[themeName].a);
-      base.strength = PALETTE[themeName].strength;
-      base.wash = PALETTE[themeName].wash;
-      gold.bgTop.set(SCROLL_GOLD[themeName].bgTop);
-      gold.bgBottom.set(SCROLL_GOLD[themeName].bgBottom);
-      gold.glow.set(SCROLL_GOLD[themeName].glow);
-      gold.a.set(SCROLL_GOLD[themeName].a);
-      gold.strength = SCROLL_GOLD[themeName].strength;
-      gold.wash = SCROLL_GOLD[themeName].wash;
-      mid.bgTop.set(SCROLL_MID[themeName].bgTop);
-      mid.bgBottom.set(SCROLL_MID[themeName].bgBottom);
-      mid.glow.set(SCROLL_MID[themeName].glow);
-      mid.a.set(SCROLL_MID[themeName].a);
-      mid.strength = SCROLL_MID[themeName].strength;
-      mid.wash = SCROLL_MID[themeName].wash;
-      causticsUniforms.uVeins.value = PALETTE[themeName].veins ? 1 : 0;
-      causticsUniforms.uDensity.value = PALETTE[themeName].causticDensity;
-      causticsUniforms.uSharp.value = PALETTE[themeName].causticSharp;
-      dustMaterial.blending = PALETTE[themeName].additive
+      base.bgTop.set(WATER[themeName].bgTop);
+      base.bgBottom.set(WATER[themeName].bgBottom);
+      base.glow.set(WATER[themeName].glow);
+      base.dust.set(WATER[themeName].dust);
+      base.strength = WATER[themeName].strength;
+      base.wash = WATER[themeName].wash;
+      gold.bgTop.set(WATER_SCROLL_GOLD[themeName].bgTop);
+      gold.bgBottom.set(WATER_SCROLL_GOLD[themeName].bgBottom);
+      gold.glow.set(WATER_SCROLL_GOLD[themeName].glow);
+      gold.dust.set(WATER_SCROLL_GOLD[themeName].dust);
+      gold.strength = WATER_SCROLL_GOLD[themeName].strength;
+      gold.wash = WATER_SCROLL_GOLD[themeName].wash;
+      mid.bgTop.set(WATER_SCROLL_MID[themeName].bgTop);
+      mid.bgBottom.set(WATER_SCROLL_MID[themeName].bgBottom);
+      mid.glow.set(WATER_SCROLL_MID[themeName].glow);
+      mid.dust.set(WATER_SCROLL_MID[themeName].dust);
+      mid.strength = WATER_SCROLL_MID[themeName].strength;
+      mid.wash = WATER_SCROLL_MID[themeName].wash;
+      causticsUniforms.uVeins.value = WATER[themeName].veins ? 1 : 0;
+      causticsUniforms.uDensity.value = WATER[themeName].causticDensity;
+      causticsUniforms.uSharp.value = WATER[themeName].causticSharp;
+      voidTarget.set(WATER[themeName].voidColor);
+      voidStrengthTarget = WATER[themeName].voidStrength;
+      dustMaterial.blending = WATER[themeName].additive
         ? THREE.AdditiveBlending
         : THREE.NormalBlending;
       dustMaterial.needsUpdate = true;
@@ -248,6 +262,13 @@ export function MagePoolBackground() {
       ripples.push({ x, y, t0: elapsed(), s });
       while (ripples.length > RIPPLE_SLOTS) ripples.shift();
     };
+    type Release = { x: number; y: number; t0: number; s: number; r: number };
+    const releases: Release[] = [];
+    const pushRelease = (x: number, y: number, s: number, r: number) => {
+      if (reduced) return;
+      releases.push({ x, y, t0: elapsed(), s, r });
+      while (releases.length > RELEASE_SLOTS) releases.shift();
+    };
     const onPointer = (e: PointerEvent) => {
       mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
@@ -261,13 +282,18 @@ export function MagePoolBackground() {
       const d = (e as CustomEvent<MageRippleDetail>).detail;
       if (d) pushRipple(d.x, d.y, d.s);
     };
+    const onMageRelease = (e: Event) => {
+      const d = (e as CustomEvent<MageReleaseDetail>).detail;
+      if (d) pushRelease(d.x, d.y, d.s, d.r ?? 0);
+    };
     window.addEventListener("pointermove", onPointer, { passive: true });
     window.addEventListener("pointerdown", onPointerDown, { passive: true });
     window.addEventListener(MAGE_RIPPLE_EVENT, onMageRipple);
-    scrollTarget = readScrollTarget();
+    window.addEventListener(MAGE_RELEASE_EVENT, onMageRelease);
+    scrollTarget = readPoolScroll();
     scrollMix = scrollTarget;
     const onScroll = () => {
-      scrollTarget = readScrollTarget();
+      scrollTarget = readPoolScroll();
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -279,7 +305,7 @@ export function MagePoolBackground() {
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       shared.uAspect.value = w / h;
-      scrollTarget = readScrollTarget();
+      scrollTarget = readPoolScroll();
     };
     layout();
     window.addEventListener("resize", layout);
@@ -298,6 +324,20 @@ export function MagePoolBackground() {
         else slots[i].set(0, 0, -100, 0);
       }
 
+      while (releases.length && t - releases[0].t0 > RELEASE_LIFE) releases.shift();
+      const releaseSlots = shared.uReleases.value;
+      const releaseStart = shared.uReleaseStart.value;
+      for (let i = 0; i < RELEASE_SLOTS; i++) {
+        const rl = releases[i];
+        if (rl) {
+          releaseSlots[i].set(rl.x, rl.y, rl.t0, rl.s);
+          releaseStart[i] = rl.r;
+        } else {
+          releaseSlots[i].set(0, 0, -100, 0);
+          releaseStart[i] = 0;
+        }
+      }
+
       // Slow trailing mix toward the scroll target, then rebuild the color
       // targets via base -> mid -> gold. First half fades green toward lime,
       // second half lime toward pure yellow, so mid-scroll is green mixed
@@ -307,16 +347,14 @@ export function MagePoolBackground() {
       } else {
         scrollMix = 0;
       }
-      const m = clamp01(scrollMix);
       // Slow linear travel: first half green slowly dissolves toward white,
-      // second half yellow slowly surfaces from white. No snapping.
-      const k = m < 0.5 ? m * 2 : (m - 0.5) * 2;
-      const from = m < 0.5 ? base : mid;
-      const to = m < 0.5 ? mid : gold;
+      // second half yellow slowly surfaces from white. No snapping. The triad
+      // helper owns the green -> lime -> gold routing so the orb matches.
+      const { from, to, k } = scrollTriad(scrollMix, base, mid, gold);
       targets.bgTop.copy(from.bgTop).lerp(to.bgTop, k);
       targets.bgBottom.copy(from.bgBottom).lerp(to.bgBottom, k);
       targets.glow.copy(from.glow).lerp(to.glow, k);
-      targets.a.copy(from.a).lerp(to.a, k);
+      targets.dust.copy(from.dust).lerp(to.dust, k);
       targets.strength = from.strength + (to.strength - from.strength) * k;
       targets.wash = from.wash + (to.wash - from.wash) * k;
 
@@ -327,7 +365,10 @@ export function MagePoolBackground() {
         (targets.strength - causticsUniforms.uStrength.value) * 0.03;
       causticsUniforms.uWash.value +=
         (targets.wash - causticsUniforms.uWash.value) * 0.03;
-      (dustMaterial.uniforms.uColorA.value as THREE.Color).lerp(targets.a, 0.03);
+      (dustMaterial.uniforms.uColorA.value as THREE.Color).lerp(targets.dust, 0.03);
+      causticsUniforms.uVoidColor.value.lerp(voidTarget, 0.03);
+      causticsUniforms.uVoidStrength.value +=
+        (voidStrengthTarget - causticsUniforms.uVoidStrength.value) * 0.03;
 
       const mx = reduced ? 0 : mouse.x;
       const my = reduced ? 0 : mouse.y;
@@ -358,6 +399,7 @@ export function MagePoolBackground() {
       window.removeEventListener("resize", layout);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener(MAGE_RIPPLE_EVENT, onMageRipple);
+      window.removeEventListener(MAGE_RELEASE_EVENT, onMageRelease);
       document.removeEventListener("visibilitychange", onVisibility);
       observer.disconnect();
       causticsGeometry.dispose();
@@ -384,7 +426,7 @@ export function MagePoolBackground() {
           className="pointer-events-none fixed inset-x-0 top-[14vh] z-0 flex justify-center"
         >
           <img
-            src={magefinUrl}
+            src={mageMainUrl}
             alt=""
             className="w-[62vw] max-w-md opacity-[0.16] dark:opacity-[0.14]"
           />

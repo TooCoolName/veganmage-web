@@ -25,8 +25,8 @@ export const en = {
       body: "Vegan Mage helps you craft reply to any comment or text instantly. Mage can gather the scattered threads of a conversation — the target, the post, the replies — and shapes them into one clear draft you can use.",
       joinRanks: "Join our ranks",
       meta: "Free · Installs in seconds · First conjured reply in a minute",
-      scroll: "Scroll",
-      sideNote: "The fin surfaces — scroll",
+      scroll: "More magic further down",
+      sideNote: "Find out more — scroll",
     },
     thread: {
       kicker: "How Mage helps you?",
@@ -75,7 +75,7 @@ export const en = {
     },
     swim: {
       kicker: "Start immediately",
-      title: "Are you <em>ready?</em>",
+      title: "Lets <em>cast</em> some magic",
       body: "Install the Mage, open any discussion worth joining, and meet it with a clear head and a ready draft.",
       secondary: "Find out more about Mage",
     },
@@ -84,7 +84,7 @@ export const en = {
     closingKicker: "Act as part of active online community",
     closingTitle: "Be the voice for those <br/>who cannot <em>speak</em>.",
     brandBlurb:
-      "Using technology to alleviate suffering and cultivate compassion — one reply at a time.",
+      "Using magic to alleviate suffering and cultivate compassion — one reply at a time.",
     explore: "Explore",
     extension: "Extension",
     contact: "Community",

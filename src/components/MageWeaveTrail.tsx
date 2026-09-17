@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { cn } from "../lib/utils";
-import { PALETTE, currentTheme } from "./pool/palette";
+import { WEAVE } from "./colors/weave";
+import { clamp01, currentTheme } from "./colors/theme";
 
 /** lifetime of one fading path sample, in seconds */
 const RIBBON_LIFE = 0.7;
@@ -62,10 +63,6 @@ function mix(a: Rgb, b: Rgb, t: number): Rgb {
     g: a.g + (b.g - a.g) * t,
     b: a.b + (b.b - a.b) * t,
   };
-}
-
-function clamp01(v: number): number {
-  return Math.min(1, Math.max(0, v));
 }
 
 type Strand = {
@@ -160,17 +157,17 @@ export function MageWeaveTrail() {
       });
     };
 
-    let colA = toRgb(PALETTE[currentTheme()].cursorA);
-    let colB = toRgb(PALETTE[currentTheme()].cursorB);
+    let colA = toRgb(WEAVE[currentTheme()].strand);
+    let colB = toRgb(WEAVE[currentTheme()].strandAccent);
     let tgtA = { ...colA };
     let tgtB = { ...colB };
-    let additive = PALETTE[currentTheme()].additive;
+    let additive = WEAVE[currentTheme()].additive;
     let light = currentTheme() === "light";
 
     const observer = new MutationObserver(() => {
-      const pal = PALETTE[currentTheme()];
-      tgtA = toRgb(pal.cursorA);
-      tgtB = toRgb(pal.cursorB);
+      const pal = WEAVE[currentTheme()];
+      tgtA = toRgb(pal.strand);
+      tgtB = toRgb(pal.strandAccent);
       additive = pal.additive;
       light = currentTheme() === "light";
     });
