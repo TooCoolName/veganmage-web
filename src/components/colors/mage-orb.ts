@@ -27,7 +27,7 @@ export const MAGE_ORB = {
     glass: "#0a120d", // near-black green backing so the orb stays a dark world
     ink: "#000000", // silhouette inks black so the figure sinks into the glass
     inkAmount: 0.86, // how strongly the silhouette inks over the glass
-    veil: 0.28, // dim the plasma over the figure so it stays submerged
+    veil: 0.38, // dim the plasma over the figure so it stays submerged
   },
 } as const satisfies Record<
   ThemeName,
