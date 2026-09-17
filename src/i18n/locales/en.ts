@@ -1,6 +1,6 @@
 export const en = {
   meta: {
-    homeTitle: "Vegan Mage — Be ready when advocacy happens",
+    homeTitle: "Vegan Mage",
     privacyTitle: "Privacy Policy | {{productName}}",
   },
   common: {
