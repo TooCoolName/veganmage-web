@@ -70,7 +70,7 @@ export function Layout() {
                         className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-background/80 via-background/35 to-transparent blur-2xl"
                     />
                     <span className="relative flex items-center gap-2 text-xl font-bold">
-                        <img src="/icon128.png" alt="Logo" className="size-9 object-contain opacity-90" />
+                        <img src="/icon-128.png" alt="Logo" className="size-9 object-contain opacity-90" />
                         <span className="text-foreground dark:text-primary font-extrabold tracking-tight">
                             Vegan Mage
                         </span>

@@ -124,7 +124,7 @@ export function Footer({ transparent = false }: { transparent?: boolean }) {
                     <div className="col-span-2 space-y-4 lg:col-span-1">
                         <Link to="/" className="group flex items-center gap-3">
                             <img
-                                src="/icon128.png"
+                                src="/icon-128.png"
                                 alt="Vegan Mage logo"
                                 className="size-11 object-contain opacity-90 transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3"
                             />
