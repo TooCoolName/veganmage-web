@@ -120,7 +120,7 @@ export function HomePage() {
       {/* ─── Hero (kept, green) ───────────────────────────────── */}
       <section
         ref={heroRef}
-        className="relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center overflow-hidden bg-transparent px-6 pt-24 pb-24 sm:pt-28 md:px-10 md:pt-10 md:pb-28 lg:px-16 xl:px-24"
+        className="relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center overflow-hidden bg-transparent px-6 pt-24 pb-24 sm:pt-28 md:px-10 md:pb-28 lg:px-16 xl:px-24"
       >
         {/* feathered frosted patch behind the copy: veins stay visible around it */}
         <div
